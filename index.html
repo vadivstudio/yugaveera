@@ -1665,7 +1665,7 @@ img,video,canvas{max-width:100%}
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 93</span>
+    <span>Crafted with devotion · Made in India · build 94</span>
   </div>
 </footer>
 
@@ -2136,7 +2136,21 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   var hold=false;
   mv.addEventListener('pointerdown',function(){hold=true;});
   addEventListener('pointerup',function(){ if(hold){ hold=false; lastOrbit=''; } },{passive:true});
-  var lastPos='', lastOrbit='', lastAl=-1;
+  var lastPos='', lastOrbit='', lastAl=-1, crFit=1;
+  var crLead=document.querySelector('#craft .lead'), crCol=crLead&&crLead.parentElement, crLine=document.getElementById('tline');
+  /* Craft dock: centre the model in the free space under the intro text, sized to fit it */
+  function craftDock(vv){
+    var CR={x:-.56,y:.34,s:.5,t:0,p:72,rad:95};
+    if(!crLead) return CR;
+    var r=crLead.getBoundingClientRect(), c=crCol.getBoundingClientRect(), iw=innerWidth,
+        top=r.bottom+24, bot=vv-24, bh=Math.min(vv*.7,680), bw=Math.min(iw*.44,640);
+    /* stacked layout (<=1060px): the timeline sits under the text, so stop above it */
+    if(crLine){ var lt=crLine.getBoundingClientRect().top; if(lt>r.bottom) bot=Math.min(bot, lt-24); }
+    var s=Math.min(.5, (bot-top)/bh*.95, c.width/bw);
+    crFit=s<.22?0:1;
+    CR.s=Math.max(s,.22); CR.y=((top+bot)/2-vv/2)/(vv/2); CR.x=((c.left+c.width/2)-iw/2)/(iw/2);
+    return CR;
+  }
   gsap.ticker.add(function(){
     var tt=performance.now()/1000, hf=Math.max(0,1-(window.scrollY||0)/(innerHeight*.7));
     H.mx+=(H.tx-H.mx)*.06; H.my+=(H.ty-H.my)*.06;
@@ -2146,7 +2160,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       var vv=innerHeight, c01=function(v){return v<0?0:v>1?1:v}, ez=function(t){return t*t*(3-2*t)},
           tp=function(id){var e=document.getElementById(id); return e?e.getBoundingClientRect().top:1e9};
       var p1=ez(c01((vv-tp('story'))/(vv*.75))), p2=ez(c01((vv-tp('craft'))/(vv*.75)));
-      var HE={x:0,y:.03,s:1.1,t:0,p:80,rad:106}, ST={x:.5,y:.02,s:.8,t:-360,p:78,rad:105}, CR={x:-.56,y:.34,s:.5,t:0,p:72,rad:95};
+      var HE={x:0,y:.03,s:1.1,t:0,p:80,rad:106}, ST={x:.5,y:.02,s:.8,t:-360,p:78,rad:105}, CR=p2>0?craftDock(vv):{x:-.56,y:.34,s:.5,t:0,p:72,rad:95};
       ['x','y','s','t','p','rad'].forEach(function(k){
         var base=HE[k]+(ST[k]-HE[k])*p1, tgt=base+(CR[k]-base)*p2;
         J[k]+=(tgt-J[k])*.14; if(Math.abs(tgt-J[k])<.0005) J[k]=tgt;
@@ -2154,7 +2168,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
     /* deterministic visibility: only the hero, the story column and the Craft section */
     var vh=innerHeight, cl=function(v){return v<0?0:v>1?1:v}, el=function(i){var e=document.getElementById(i); return e?e.getBoundingClientRect().top:1e9};
-    var a1=cl((el('collections')-vh*.72)/(vh*.28)), a2=innerWidth<900?0:cl((vh*.42-el('craft'))/(vh*.3))*(1-cl((vh*.98-el('anatomy'))/(vh*.28)));
+    var a1=cl((el('collections')-vh*.72)/(vh*.28)), a2=innerWidth<900?0:crFit*cl((vh*.42-el('craft'))/(vh*.3))*(1-cl((vh*.98-el('anatomy'))/(vh*.28)));
     var al=Math.max(a1,a2); if(al!==lastAl){ lastAl=al; pos.style.opacity=al.toFixed(3); pos.style.visibility=al<.01?'hidden':'visible'; }
     var px=(J.x*innerWidth*.5+H.mx*16*hf).toFixed(1), py=(J.y*innerHeight*.5+H.my*10*hf+Math.sin(tt*.9)*6*hf).toFixed(1), ps=J.s.toFixed(3);
     var pk=px+','+py+','+ps;
