@@ -6,6 +6,20 @@
 <title>Yugaveera — Guardians of Dharma | Premium Divine Collectibles</title>
 <meta name="description" content="Premium 3D-printed temple miniatures and divine collectibles. Sacred forms reimagined as modern icons — designed and made in India.">
 <link rel="preload" as="image" href="logo.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#ececec">
+<link rel="canonical" href="https://www.yugaveera.in/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Yugaveera">
+<meta property="og:url" content="https://www.yugaveera.in/">
+<meta property="og:title" content="Yugaveera — Guardians of Dharma">
+<meta property="og:description" content="Premium 3D-printed temple miniatures and divine collectibles — sacred forms reimagined, made in India.">
+<meta property="og:image" content="https://www.yugaveera.in/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&f[]=general-sans@500,600&display=swap" rel="stylesheet">
@@ -1066,6 +1080,29 @@ img,video,canvas{max-width:100%}
 .shop-split .eyebrow{margin-bottom:26px}
 .shop-split .cs{margin-top:0}
 .shop-split .cs+.cs{margin-top:clamp(44px,6vw,90px)}
+/* ===== button system — exactly three variants, one size =====
+   1. Primary    .btn.solid                      solid black pill  → hover gold
+   2. Secondary  .btn / .btn.gold, chips, arrows outlined pill/circle → hover black fill
+   3. Text link  .hr-link .cs-all .ix-all .cs-more uppercase + underline → hover gold
+   Older per-section overrides above are superseded here. */
+.btn,.ab-cats a{display:inline-flex!important; align-items:center; justify-content:center; gap:10px; height:48px; padding:0 30px!important;
+  font:600 14px/1 'Cormorant Garamond',serif!important; letter-spacing:.14em!important; text-transform:uppercase; white-space:nowrap;
+  border-radius:100px!important; border:1px solid rgba(0,0,0,.3)!important; background:transparent!important; color:#0a0a0a!important;
+  box-shadow:none!important; outline:0!important; transform:none; transition:background .3s,color .3s,border-color .3s}
+.btn:hover,.ab-cats a:hover{background:#0a0a0a!important; border-color:#0a0a0a!important; color:#fff!important; box-shadow:none!important; transform:none}
+.btn.solid{background:#0a0a0a!important; border-color:#0a0a0a!important; color:#fff!important}
+.btn.solid:hover{background:var(--gold)!important; border-color:var(--gold)!important; color:#0a0a0a!important}
+nav .btn{height:40px; padding:0 22px!important}
+.cc-btn,.cs-btn{width:48px!important; height:48px!important; border-radius:50%!important; border:1px solid rgba(0,0,0,.3)!important;
+  background:transparent!important; color:#0a0a0a!important; font-size:18px; transform:none!important; transition:background .3s,color .3s,border-color .3s}
+.cc-btn:hover:not([disabled]),.cs-btn:hover:not(:disabled){background:#0a0a0a!important; border-color:#0a0a0a!important; color:#fff!important}
+.cc-btn[disabled],.cs-btn:disabled{opacity:.3}
+#hero .hr-link,.hr-link,.cs-all,.ix-all,.cs-more{display:inline-flex; align-items:center; gap:8px; font:600 14px/1 'Cormorant Garamond',serif!important;
+  letter-spacing:.14em!important; text-transform:uppercase; color:#0a0a0a!important; padding-bottom:5px; border-bottom:1px solid rgba(0,0,0,.4)!important;
+  transition:color .3s,border-color .3s,gap .3s}
+#hero .hr-link:hover,.hr-link:hover,.cs-all:hover,.ix-all:hover,a:hover .cs-more{color:#8A6D30!important; border-color:#8A6D30!important; gap:12px}
+@media(max-width:700px){.btn,.ab-cats a{height:46px; padding:0 22px!important; font-size:13px!important} .cc-btn,.cs-btn{width:44px!important; height:44px!important}}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1243,7 +1280,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
       </a>
       <a class="cc-slide" href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener">
         <div class="cc-im"><img src="https://yugaveera.com/cdn/shop/files/9628C8DD-A4FA-4047-8EAD-B8F69E780DB0.png?v=1771042526&width=800" alt="Limited Editions" loading="lazy"></div>
-        <div class="cc-meta"><h3>Limited Editions</h3><small>Numbered. Rare. Gone when gone.</small><p>Small-batch colorways and one-time sculpts. When a run sells out, it is never reprinted.</p></div>
+        <div class="cc-meta"><h3>Limited Editions</h3><small>Numbered. Rare. Gone when gone.</small><p>Small-batch colourways and one-time sculpts. When a run sells out, it is never reprinted.</p></div>
       </a>
       <a class="cc-slide" href="https://yugaveera.com/collections/car-hangs" target="_blank" rel="noopener">
         <div class="cc-im"><img src="https://yugaveera.com/cdn/shop/files/FullSizeRender_cfb23c25-d0e7-47b9-a1aa-ddecdb36b0a3.jpg?v=1779762151&width=800" alt="Car Hangs and Dashboard" loading="lazy"></div>
@@ -1340,7 +1377,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
         <i class="prog"></i>
         <div class="t-step" data-reveal><small>Act I</small><h3>Concept</h3><p>Research into iconography, temple sculpture, and story — sketched into a modern silhouette.</p></div>
         <div class="t-step" data-reveal><small>Act II</small><h3>Digital Sculpt</h3><p>High-resolution 3D sculpting refines every curve, ornament, and expression.</p></div>
-        <div class="t-step" data-reveal><small>Act III</small><h3>3D Printing</h3><p>Precision printing at fine layer heights captures detail traditional molds cannot.</p></div>
+        <div class="t-step" data-reveal><small>Act III</small><h3>3D Printing</h3><p>Precision printing at fine layer heights captures detail traditional moulds cannot.</p></div>
         <div class="t-step" data-reveal><small>Act IV</small><h3>Finishing</h3><p>No paint, no brush — every colour and gold accent comes straight from the print, so the detail stays exactly as designed.</p></div>
         <div class="t-step" data-reveal><small>Act V</small><h3>Quality Check</h3><p>Each piece is inspected against the master — flaws never leave the studio.</p></div>
         <div class="t-step" data-reveal><small>Act VI</small><h3>Packaging</h3><p>Sealed into protective, gift-ready packaging designed for the moment of unboxing.</p></div>
@@ -1406,7 +1443,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
     <div class="mo-copy">
       <span class="jr-pill" data-reveal>Real moments</span>
       <h2 data-reveal>Made for real <em>moments.</em></h2>
-      <p data-reveal>From housewarmings and weddings to new cars and quiet corners at home — every piece is made to sit where life happens, and to bring a sense of presence with it.</p>
+      <p data-reveal>From housewarmings and weddings to pooja corners and quiet shelves at home — every piece is made to sit where life happens, and to bring a sense of presence with it.</p>
       <a class="btn solid" href="#collections" data-reveal>Explore the collection <span>&rarr;</span></a>
       <blockquote class="mo-quote" data-reveal>
         <p>“They were the perfect gift — and they were so excited that they took them to a temple to get them blessed before placing them on the dashboard.”</p>
@@ -1658,7 +1695,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
         <div class="ab-card" data-reveal><h3>How to order</h3><p>Shop online with pan-India shipping and gift-ready packaging. Buy 2 pieces and get the 3rd at 40% off. For bulk orders call +91 93805 15663.</p></div>
       </div>
     </div>
-    <div class="ab-cats" data-reveal><span>Shop by collection</span><a href="https://yugaveera.com/collections/action-figurines" target="_blank" rel="noopener">Action Figurines</a><a href="https://yugaveera.com/collections/car-hangs" target="_blank" rel="noopener">Car Hangs</a><a href="https://yugaveera.com/collections/dashboard" target="_blank" rel="noopener">Dashboard</a><a href="https://yugaveera.com/collections/temple-miniatures" target="_blank" rel="noopener">Temple Miniatures</a><a href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener">Limited Editions</a><a href="https://yugaveera.com/collections/calendars" target="_blank" rel="noopener">Calendars</a><a href="https://yugaveera.com/collections/key-chains" target="_blank" rel="noopener">Key Chains</a><a href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener">Add-ons</a></div>
+    <div class="ab-cats" data-reveal><span>Shop by collection</span><a href="https://yugaveera.com/collections/action-figurines" target="_blank" rel="noopener">Action Figurines</a><a href="https://yugaveera.com/collections/car-hangs" target="_blank" rel="noopener">Car Hangs</a><a href="https://yugaveera.com/collections/dashboard" target="_blank" rel="noopener">Dashboard</a><a href="https://yugaveera.com/collections/temple-miniatures" target="_blank" rel="noopener">Temple Miniatures</a><a href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener">Limited Editions</a><a href="https://yugaveera.com/collections/calendars" target="_blank" rel="noopener">Calendars</a><a href="https://yugaveera.com/collections/key-chains" target="_blank" rel="noopener">Keychains</a><a href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener">Add-ons</a></div>
   </div>
 </section>
 
@@ -1682,7 +1719,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
     <h2 data-reveal style="margin-bottom:50px">Before you collect</h2>
     <div class="acc" data-reveal>
       <button>What are the figurines made of?<span class="ic"></span></button>
-      <div class="a"><p>Each piece is 3D printed in premium, durable resin-grade material at fine layer heights — every colour comes straight from the print, with no paint. The result is lightweight yet sturdy, with detail that traditional molds can't reproduce.</p></div>
+      <div class="a"><p>Each piece is 3D printed in premium, durable resin-grade material at fine layer heights — every colour comes straight from the print, with no paint. The result is lightweight yet sturdy, with detail that traditional moulds can't reproduce.</p></div>
     </div>
     <div class="acc" data-reveal>
       <button>Do you ship across India?<span class="ic"></span></button>
@@ -1758,8 +1795,8 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
         <a href="https://yugaveera.com/collections/car-hangs" target="_blank" rel="noopener">Car Hangs</a>
         <a href="https://yugaveera.com/collections/dashboard" target="_blank" rel="noopener">Dashboard</a>
         <a href="https://yugaveera.com/collections/calendars" target="_blank" rel="noopener">Calendars</a>
-        <a href="https://yugaveera.com/collections/key-chains" target="_blank" rel="noopener">Key Chains</a>
-        <a href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener">Add ons</a>
+        <a href="https://yugaveera.com/collections/key-chains" target="_blank" rel="noopener">Keychains</a>
+        <a href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener">Add-ons</a>
       </div>
       <div>
         <h4>Connect</h4>
@@ -1779,7 +1816,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 101</span>
+    <span>Crafted with devotion · Made in India · build 102</span>
   </div>
 </footer>
 
