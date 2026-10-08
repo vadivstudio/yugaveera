@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yugaveera — Guardians of Dharma | Premium Divine Collectibles</title>
 <meta name="description" content="Premium 3D-printed temple miniatures and divine collectibles. Sacred forms reimagined as modern icons — designed and made in India.">
+<script>
+/* every load / reload starts at the top, on the hero: no restored scroll position,
+   and a #section left in the address bar by the menu links is dropped */
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+window.scrollTo(0, 0);
+addEventListener('pageshow', function(){ window.scrollTo(0, 0); });
+</script>
 <link rel="preload" as="image" href="logo.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
@@ -1818,7 +1826,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 103</span>
+    <span>Crafted with devotion · Made in India · build 104</span>
   </div>
 </footer>
 
@@ -1873,12 +1881,14 @@ window.__holderReady = false;
 <script>
 /* ============ core page motion ============ */
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.clearScrollMemory("manual");   /* never restore an old scroll position */
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* smooth scroll */
 let lenis = null;
 if (!reduceMotion && typeof Lenis !== 'undefined') {
   lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+  lenis.scrollTo(0, { immediate: true });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add(t => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
