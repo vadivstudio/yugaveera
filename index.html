@@ -1665,7 +1665,7 @@ img,video,canvas{max-width:100%}
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 94</span>
+    <span>Crafted with devotion · Made in India · build 95</span>
   </div>
 </footer>
 
@@ -2283,10 +2283,19 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       const draco = new DRACOLoader();
       draco.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
       const loader = new GLTFLoader(); loader.setDRACOLoader(draco);
-      /* let the hero settle, then wait until the section is near before downloading the four parts */
+      /* start the four parts as soon as the hero model is in (so they don't slow it down),
+         or earlier if the visitor is already heading for this section */
       if (document.readyState !== 'complete') await new Promise(r => addEventListener('load', r, { once:true }));
-      await new Promise(r => { const io = new IntersectionObserver(es => {
-        if (es.some(e => e.isIntersecting)) { io.disconnect(); r(); } }, { rootMargin:'150% 0px' }); io.observe(stage || canvas); });
+      await new Promise(r => {
+        let done = false; const go = () => { if (!done){ done = true; io.disconnect(); r(); } };
+        const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) go(); }, { rootMargin:'300% 0px' });
+        io.observe(stage || canvas);
+        /* whichever hero viewer is actually on screen (floating on desktop, in-hero on phones) */
+        const hero = ['gopuramMV','heroMV2'].map(id => document.getElementById(id))
+          .find(m => m && m.getClientRects().length);
+        if (!hero || hero.loaded) go(); else hero.addEventListener('load', go, { once:true });
+        setTimeout(go, 20000); /* hero failed: don't wait forever */
+      });
       async function getBuf(name){
         for (let i = 0; i < 2; i++){
           try { const r = await fetch(name); if (r.ok) return await r.arrayBuffer(); } catch(e){}
@@ -2300,12 +2309,15 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       const group = new THREE.Group(); scene.add(group);
       const inner = new THREE.Group(); group.add(inner);
       const parts = {}, mats = {};
-      for (const k of Object.keys(files)){
+      /* download and decode all four in parallel (Draco decodes in a worker pool) */
+      const scenes = await Promise.all(Object.keys(files).map(async k => {
         const buf = await getBuf(files[k]); if (!buf) throw new Error('missing ' + files[k]);
-        const g = await new Promise((res, rej) => loader.parse(buf, '', res, rej));
-        const h = new THREE.Group(); h.add(g.scene); inner.add(h); parts[k] = h;
+        return (await new Promise((res, rej) => loader.parse(buf, '', res, rej))).scene;
+      }));
+      Object.keys(files).forEach((k, i) => {
+        const h = new THREE.Group(); h.add(scenes[i]); inner.add(h); parts[k] = h;
         mats[k] = []; h.traverse(o => { if (o.isMesh && o.material) mats[k].push(o.material); });
-      }
+      });
       const gBox = new THREE.Box3().setFromObject(inner);
       const gSize = gBox.getSize(new THREE.Vector3()), gC = gBox.getCenter(new THREE.Vector3());
       const Y = gSize.y;
