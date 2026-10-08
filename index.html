@@ -567,6 +567,8 @@ nav .links a{font:600 14px/1 'Cormorant Garamond',serif; letter-spacing:.14em}
 #anatomy .an-stage{height:min(calc(100vh - 262px),760px); min-height:400px; background:none; border:0; border-radius:0; box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none}
 #anatomy .an-copy{background:none; border:0; border-radius:0; box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none; padding:0; right:clamp(0px,2vw,30px); width:min(380px,36%)}
 #anatomy .an-copy h3{font-size:clamp(26px,2.3vw,36px); line-height:1.1}
+/* desktop: model + copy centred as one group instead of spanning the full screen */
+@media(min-width:900px){#anatomy .an-stage{max-width:1320px; margin-left:auto; margin-right:auto} #anatomy .an-copy{right:0}}
 #anatomy .an-cap{background:none; border:0; border-radius:0; box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none; padding:0; left:0; bottom:6px; font:600 14px/1.5 'Cormorant Garamond',serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold)}
 @media(max-width:900px){
   #anatomy{height:auto; min-height:0; display:block; padding:90px 20px 40px}
@@ -1816,7 +1818,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 102</span>
+    <span>Crafted with devotion · Made in India · build 103</span>
   </div>
 </footer>
 
@@ -2443,8 +2445,10 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       /* warm sky above, green grass bounce below */
       scene.add(new THREE.HemisphereLight(0xffffff, 0xb9b4aa, .2));
 
+      let placeGroup = null, stageVisible = true, lastSig = '';   /* placeGroup is set once the model is loaded */
       function setSize(){ const r = canvas.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return;
-        renderer.setSize(r.width, r.height, false); cam.aspect = r.width/r.height; cam.updateProjectionMatrix(); }
+        renderer.setSize(r.width, r.height, false); cam.aspect = r.width/r.height; cam.updateProjectionMatrix();
+        if (placeGroup) placeGroup(); }
       setSize();
       new ResizeObserver(setSize).observe(canvas);
       if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.addEventListener('refresh', setSize);
@@ -2516,8 +2520,19 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       ground.position.y = -.08 - (gSize.y / 2) * s - .55;
       ground.receiveShadow = true;
       scene.add(ground);
-      const shift = (isDesk ? -.62 : 0);  /* model sits left of the overlay card */
-      group.position.set(shift, -.08, 0);
+      /* desktop: centre the model in the free space left of the product copy, so model + copy
+         read as one centred group at any width (was a fixed -.62 offset) */
+      const copyEl = stage.querySelector('.an-copy');
+      placeGroup = () => {
+        if (!isDesk || !copyEl) { group.position.x = 0; return; }
+        const sr = stage.getBoundingClientRect(), cr = copyEl.getBoundingClientRect();
+        if (sr.width < 2) return;
+        const halfW = Math.tan(THREE.MathUtils.degToRad(cam.fov / 2)) * Math.hypot(.75, 6.2) * cam.aspect;
+        group.position.x = (((cr.left - sr.left) / 2) / sr.width - .5) * 2 * halfW;
+        lastSig = '';   /* force a redraw */
+      };
+      group.position.set(0, -.08, 0);
+      placeGroup();
       group.rotation.y = narrow ? -.3 : -.48; group.rotation.x = .04; /* 3/4 view like the hero model */
       const gold = new THREE.Color(0xC8A24D);
       const allMats = Object.values(mats).flat();
@@ -2536,7 +2551,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       cam.position.set(0, .7, 6.2);
       cam.lookAt(0, -.05, 0);
 
-      let stageVisible = true, lastSig = '';
+      stageVisible = true; lastSig = '';
       try { new IntersectionObserver(es => { stageVisible = es.some(e => e.isIntersecting); }, { rootMargin:'60%' }).observe(stage); } catch(e){}
       renderer.setAnimationLoop(() => {
         if (!stageVisible) return;
