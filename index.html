@@ -1071,7 +1071,7 @@ img,video,canvas{max-width:100%}
 <div class="progress"></div>
 <div id="mvLayer"><div class="pos">
 <div class="halo"></div>
-<model-viewer id="gopuramMV" orientation="0deg 0deg -90deg" camera-controls disable-zoom disable-pan interaction-prompt="none" min-camera-orbit="-Infinity 0deg auto" max-camera-orbit="Infinity 180deg auto" exposure="1.05" tone-mapping="commerce" environment-image="neutral" shadow-intensity="0.8" shadow-softness="1" camera-orbit="0deg 78deg 108%" alt="3D gopuram temple miniature — drag to rotate"></model-viewer>
+<model-viewer id="gopuramMV" camera-controls disable-zoom disable-pan interaction-prompt="none" min-camera-orbit="-Infinity 0deg auto" max-camera-orbit="Infinity 180deg auto" exposure="1.05" tone-mapping="commerce" environment-image="neutral" shadow-intensity="0.8" shadow-softness="1" camera-orbit="0deg 78deg 108%" alt="3D temple tower — drag to rotate"></model-viewer>
 </div></div>
 
 <div class="bg-fx">
@@ -1158,7 +1158,7 @@ img,video,canvas{max-width:100%}
         </a>
       </div>
     </div>
-    <div class="hero-mid"><model-viewer id="heroMV2" class="hero-mv2" orientation="0deg 0deg -90deg" camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none" auto-rotate auto-rotate-delay="0" rotation-per-second="22deg" exposure="1.05" tone-mapping="commerce" environment-image="neutral" shadow-intensity="0.8" shadow-softness="1" camera-orbit="25deg 78deg 108%" alt="3D gopuram temple miniature — drag to rotate"></model-viewer></div>
+    <div class="hero-mid"><model-viewer id="heroMV2" class="hero-mv2" camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none" auto-rotate auto-rotate-delay="0" rotation-per-second="22deg" exposure="1.05" tone-mapping="commerce" environment-image="neutral" shadow-intensity="0.8" shadow-softness="1" camera-orbit="25deg 78deg 108%" alt="3D temple tower — drag to rotate"></model-viewer></div>
     <aside class="hr" data-load>
       <div class="mono">( 01 ) &nbsp;Featured — Temple Miniatures</div>
       <h3>Gopuram,<br><em>tier by tier.</em></h3>
@@ -1667,7 +1667,7 @@ img,video,canvas{max-width:100%}
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 89</span>
+    <span>Crafted with devotion · Made in India · build 90</span>
   </div>
 </footer>
 
@@ -1700,7 +1700,7 @@ setTimeout(function(){
       var bin = atob(b64), u8 = new Uint8Array(bin.length);
       for (var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
       mv.setAttribute('src', URL.createObjectURL(new Blob([u8.buffer], { type:'model/gltf-binary' })));
-    } else { mv.setAttribute('src', 'gopuram-layered.glb'); }
+    } else { mv.setAttribute('src', 'temple-tower.glb'); }
   } catch(e){ badge(e.message || e); }
   mv.addEventListener('load', function(){ console.log('gopuram 3D ready'); });
   setTimeout(function(){ if (!customElements.get('model-viewer')) badge('3D viewer library could not load — check internet/firewall'); }, 7000);
