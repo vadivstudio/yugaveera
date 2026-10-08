@@ -1665,7 +1665,7 @@ img,video,canvas{max-width:100%}
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 91</span>
+    <span>Crafted with devotion · Made in India · build 92</span>
   </div>
 </footer>
 
@@ -1673,15 +1673,6 @@ img,video,canvas{max-width:100%}
 <script>window.GOPURAM_GLB_B64="__GOPURAM_B64__";window.ANATOMY_B64="__ANATOMY_B64__";</script>
 <script>
 window.__holderReady = false;
-setTimeout(function(){
-  if (!window.__holderReady && document.getElementById('anCanvas')) {
-    var d = document.createElement('div');
-    d.style.cssText = 'position:fixed;bottom:14px;left:14px;z-index:999;background:#A07F3A;color:#fff;font:12px/1.6 monospace;padding:12px 16px;border-radius:10px;max-width:72vw;cursor:pointer';
-    d.textContent = 'The split-and-join 3D engine could not start — usually a blocked CDN connection. Check internet/firewall, then hard-refresh. (click to dismiss)';
-    d.onclick = function(){ d.remove(); };
-    document.body.appendChild(d);
-  }
-}, 12000);
 </script>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
@@ -1691,7 +1682,7 @@ setTimeout(function(){
 (function(){
   var mv = document.getElementById('gopuramMV');
   if (!mv) return;
-  function badge(msg){ var d=document.createElement('div'); d.style.cssText='position:fixed;bottom:14px;left:14px;z-index:999;background:#A07F3A;color:#fff;font:12px/1.5 monospace;padding:10px 14px;border-radius:10px;max-width:72vw;word-break:break-word'; d.textContent='3D: '+msg; document.body.appendChild(d); }
+  function badge(msg){ console.warn('3D: ' + msg); }
   try {
     var b64 = window.GOPURAM_GLB_B64;
     if (b64 && b64.length > 100) {
@@ -2245,7 +2236,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
   if (typeof ScrollTrigger !== 'undefined') { ScrollTrigger.sort(); ScrollTrigger.refresh(); }
 
   (async function(){
-    const badge = m => { const d=document.createElement('div'); d.style.cssText='position:fixed;bottom:14px;left:14px;z-index:999;background:#A07F3A;color:#fff;font:12px/1.5 monospace;padding:10px 14px;border-radius:10px;max-width:72vw'; d.textContent='Holder 3D: '+m; document.body.appendChild(d); };
+    const badge = m => console.warn('Holder 3D: ' + m);
     try {
       const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
       renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -2278,11 +2269,14 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       const draco = new DRACOLoader();
       draco.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
       const loader = new GLTFLoader(); loader.setDRACOLoader(draco);
-      /* let the hero settle before decoding the four parts */
+      /* let the hero settle, then wait until the section is near before downloading the four parts */
       if (document.readyState !== 'complete') await new Promise(r => addEventListener('load', r, { once:true }));
-      await new Promise(r => setTimeout(r, 600));
+      await new Promise(r => { const io = new IntersectionObserver(es => {
+        if (es.some(e => e.isIntersecting)) { io.disconnect(); r(); } }, { rootMargin:'150% 0px' }); io.observe(stage || canvas); });
       async function getBuf(name){
-        try { const r = await fetch(name); if (r.ok) return await r.arrayBuffer(); } catch(e){}
+        for (let i = 0; i < 2; i++){
+          try { const r = await fetch(name); if (r.ok) return await r.arrayBuffer(); } catch(e){}
+        }
         const b64 = window.ANATOMY_B64 && window.ANATOMY_B64[name];
         if (b64 && b64.length > 100) { const bin = atob(b64), u = new Uint8Array(bin.length);
           for (let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return u.buffer; }
