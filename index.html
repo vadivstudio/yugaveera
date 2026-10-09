@@ -1183,7 +1183,16 @@ h1 .accent,h1 .accent i,h2 em,#hero .hr h3 em{color:var(--gold-lg)!important; -w
 .hr-link,.cs-all{position:relative}
 .hr-link::before,.cs-all::before{content:''; position:absolute; inset:-12px -8px}
 @media(max-width:600px){
-  footer.site a{display:inline-block; padding:10px 0}
+  /* footer: two balanced columns (Shop | Connect + Legal), 44px link rows with no extra gap (proximity),
+     clearly larger gap between groups; ~half the previous height */
+  footer.site{padding-top:44px!important}
+  footer.site .top{gap:32px!important; margin-bottom:32px!important}
+  footer.site .logo-img{height:52px}
+  footer.site .cols{display:grid!important; grid-template-columns:1fr 1fr; gap:28px 20px!important; width:100%}
+  footer.site .cols > div:first-child{grid-row:span 2}
+  footer.site h4{margin-bottom:6px!important}
+  footer.site .cols a{margin:0!important; padding:12px 0!important; line-height:1.35}
+  footer.site .base{padding-top:20px!important}
   .announce{text-transform:none!important; letter-spacing:.02em!important; font-size:12px!important}
   /* one size per level on phones too */
   .cc-meta h3,.svc-body h3,.ab-card h3,.conn-card h3,.t-step h3{font-size:20px!important; line-height:1.2!important; text-transform:none!important; letter-spacing:0!important}
@@ -1917,7 +1926,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
         <h4>Connect</h4>
         <a href="https://www.instagram.com/yugaveera3d" target="_blank" rel="noopener">Instagram</a>
         <a href="https://youtube.com/@yugaveeraog" target="_blank" rel="noopener">YouTube</a>
-        <a href="tel:+919380515663">Bulk orders: +91 93805 15663</a>
+        <a href="tel:+919380515663">Bulk orders: <span style="white-space:nowrap">+91 93805 15663</span></a>
       </div>
       <div>
         <h4>Legal</h4>
@@ -1931,7 +1940,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 110</span>
+    <span>Crafted with devotion · Made in India · build 111</span>
   </div>
 </footer>
 
