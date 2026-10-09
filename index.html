@@ -1210,6 +1210,8 @@ html,body{overflow-x:hidden; overflow-x:clip}
 .an-track,.an-pin{display:contents}
 @media(max-width:899px){
   #anatomy .an-stage{overflow:visible!important}
+  /* centred when it fits, top-aligned when it does not ("safe" centring) - never rises into the heading */
+  #anatomy .an-copy{top:0!important; bottom:0!important; transform:none!important; display:flex!important; flex-direction:column; justify-content:center; justify-content:safe center; align-items:flex-start}
   #anatomy .an-track{display:block; position:relative; height:calc(min(62vh,520px) + 160vh)}
   #anatomy .an-pin{display:block; position:sticky; top:80px}
 }
@@ -1254,6 +1256,28 @@ html,body{overflow-x:hidden; overflow-x:clip}
 /* Journal video card: same frame as the photo cards */
 .jr-cimg video{width:100%; height:100%; object-fit:cover; display:block; transition:transform 1s var(--ease)}
 .jr-card:hover .jr-cimg video{transform:scale(1.05)}
+
+/* Anatomy product panel: never clipped by the stage. Title is a product name inside a side panel,
+   one level below the section heading; short laptop screens get a tighter panel so it always fits */
+@media(min-width:900px){
+  #anatomy .an-stage{overflow:visible!important}
+  /* centred when it fits, top-aligned when it does not ("safe" centring) - never rises into the heading */
+  #anatomy .an-copy{top:0!important; bottom:0!important; transform:none!important; display:flex!important; flex-direction:column; justify-content:center; justify-content:safe center; align-items:flex-start}
+  #anatomy .an-copy h3{font-size:clamp(26px,2.1vw,34px)!important; line-height:1.1!important}
+}
+@media(min-width:900px) and (max-height:780px){
+  #anatomy .an-copy h3{font-size:26px!important; margin-bottom:8px!important}
+  #anatomy .an-copy p{font-size:15px!important; line-height:1.5!important; margin-bottom:8px!important}
+  #anatomy .an-copy li{font-size:15px!important; padding-top:3px!important; padding-bottom:3px!important}
+  #anatomy .an-copy ul{margin:10px 0 16px!important}
+  #anatomy .an-copy{padding-top:22px!important}   /* breathing room under the section heading on short screens */
+  #anatomy h2{font-size:clamp(40px,3.6vw,54px)!important}
+}
+@media(min-width:900px) and (max-height:700px){
+  #anatomy h2{font-size:40px!important}
+  #anatomy .an-note{display:none!important}
+  #anatomy .an-copy li{padding-top:1px!important; padding-bottom:1px!important}
+}
 
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
@@ -1970,7 +1994,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 117</span>
+    <span>Crafted with devotion · Made in India · build 118</span>
   </div>
 </footer>
 
