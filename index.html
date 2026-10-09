@@ -1210,7 +1210,7 @@ html,body{overflow-x:hidden; overflow-x:clip}
 .an-track,.an-pin{display:contents}
 @media(max-width:899px){
   #anatomy .an-stage{overflow:visible!important}
-  #anatomy .an-track{display:block; position:relative; height:calc(min(62vh,520px) + 110vh)}
+  #anatomy .an-track{display:block; position:relative; height:calc(min(62vh,520px) + 160vh)}
   #anatomy .an-pin{display:block; position:sticky; top:80px}
 }
 
@@ -1970,7 +1970,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 116</span>
+    <span>Crafted with devotion · Made in India · build 117</span>
   </div>
 </footer>
 
@@ -2529,7 +2529,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
   gsap.set(caps[0], { opacity:1 });
   const tl = gsap.timeline({ paused:true, defaults:{ ease:'sine.inOut' } });
   if (isDesk && typeof ScrollTrigger !== 'undefined') {
-    ScrollTrigger.create({ trigger:'#anatomy', start:'top top', end:'+=280%', pin:true, anticipatePin:1, refreshPriority:4 });
+    ScrollTrigger.create({ trigger:'#anatomy', start:'top top', end:'+=400%', pin:true, anticipatePin:1, refreshPriority:4 });
     ScrollTrigger.sort(); ScrollTrigger.refresh();
   }
   /* progress measured LIVE from real on-screen geometry — immune to stale layout */
@@ -2541,7 +2541,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     const r = host.getBoundingClientRect();
     let p;
     if (isDesk) {
-      p = (-r.top) / (2.8 * innerHeight);
+      p = (-r.top) / (4 * innerHeight);   /* matches the +=400% pin: slower, calmer split */
     } else {
       /* phones: progress = how far we are through the sticky track, so it only plays while the frame is held on screen */
       const tr = anTrack && anTrack.getBoundingClientRect();
@@ -2550,7 +2550,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     }
     p = Math.max(0, Math.min(1, p));
     if (p === pCur && tl.progress() === pCur) return;   /* settled — nothing to re-render */
-    pCur += (p - pCur) * .14;
+    pCur += (p - pCur) * .08;   /* gentler easing toward the scroll position */
     if (Math.abs(p - pCur) < .001) pCur = p;
     tl.progress(pCur);
   });
