@@ -1430,6 +1430,42 @@ h1,h2,h3,#cta h2 .ch,.cs-head h3,.ix-side h3,.shop-head h3,.cc-meta h3,.svc-body
   #cta .cta-glass{padding:26px 22px; max-width:none}
 }
 
+/* Reading order when a section stacks (phones / portrait tablets): heading -> image -> description -> button.
+   The copy wrapper dissolves (display:contents) so the image can sit between its heading and its text. */
+@media(max-width:900px){
+  /* hero: label + title, the 3D gopuram, then the line and the button */
+  #hero .copy{display:contents}
+  #hero .copy .eyebrow{order:1} #heroTitle{order:2} #hero .hero-mid{order:3} #heroLead{order:4; margin:0!important} #heroCta{order:5} #hero .hr{order:6} #hero .hero-points{order:7}
+  /* new launch */
+  .k-copy{display:contents}
+  .k-banner{grid-template-columns:1fr!important; gap:0!important}
+  .k-banner .eyebrow{order:1} .k-banner h2{order:2; margin:12px 0 18px!important} .k-img{order:3}
+  .k-banner .lead{order:4; margin:20px 0 22px!important} .k-banner .btn{order:5; justify-self:start}
+  /* in motion: heading, then the frame and its strip, then the caption and link (frame shortened so heading + frame + strip fit) */
+  #motion .mv-copy{display:contents}
+  #motion .mv-copy .eyebrow{order:1} #motion .mv-tag{order:2; margin:14px 0 8px} #motion h2{order:3; margin:0 0 18px}
+  #motion .mv-stage{order:4; height:clamp(240px, calc(100svh - 450px), 125vw)} #motion .mv-strip{order:5}
+  #motion p{order:6; margin:20px 0 18px} #mvLink{order:7; align-self:flex-start}
+  /* closing CTA: heading panel, figurine, then text + buttons panel (each a frosted-glass panel) */
+  #cta .cta-glass{display:contents}
+  #cta .cta-head{order:1} #cta .cta-art{order:2} #cta .cta-body{order:3}
+  #cta .cta-head,#cta .cta-body{padding:22px; border-radius:20px; background:rgba(255,255,255,.72); border:1px solid rgba(255,255,255,.8);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.95); -webkit-backdrop-filter:blur(18px) saturate(1.2)!important; backdrop-filter:blur(18px) saturate(1.2)!important}
+  #cta .cta-body .lead{margin:0 0 22px!important}
+}
+@media(max-width:980px){
+  /* real moments: heading, photos, then text, button and the customer quote */
+  .mo-copy{display:contents}
+  .mo-grid{gap:0!important}
+  .mo-copy .jr-pill{order:1} .mo-copy h2{order:2; margin:14px 0 22px!important} .mo-masonry{order:3}
+  .mo-copy > p{order:4; margin:24px 0 22px!important} .mo-copy > .btn{order:5; justify-self:start} .mo-quote{order:6}
+  /* journal feature card: tag + title, photo, then text */
+  .jr-fcopy{display:contents}
+  .jr-feature{display:flex!important; flex-direction:column}
+  .jr-tag{order:1; align-self:flex-start; margin:22px 22px 0} .jr-fcopy h3{order:2; margin:12px 22px 16px!important} .jr-fimg{order:3}
+  .jr-fcopy p{order:4; margin:18px 22px 0} .jr-foot{order:5; margin:16px 22px 24px!important}
+}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -2067,12 +2103,16 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
 <section id="cta">
   <div class="wrap">
     <div class="cta-glass">
+      <div class="cta-head">
       <div class="eyebrow" data-reveal>The collection awaits</div>
       <h2 data-reveal>Bring the<br><em>divine</em> home.</h2>
+      </div>
+      <div class="cta-body">
       <p class="lead" data-reveal>From temple gopurams to flying guardians — every piece is devotion, precision-crafted in India. Yours begins here.</p>
       <div class="cta-btns" data-reveal>
         <a class="btn solid" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener">Explore Collection</a>
         <a class="btn gold" href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener">Limited Editions</a>
+      </div>
       </div>
     </div>
     <div class="cta-art"><img src="cta-vel.webp" alt="Yugaveera figurine: a raised hand holding the Vel, rising from golden flames on a base marked Om" width="628" height="900" loading="lazy" decoding="async"></div>
@@ -2117,7 +2157,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 133</span>
+    <span>Crafted with devotion · Made in India · build 134</span>
   </div>
 </footer>
 
