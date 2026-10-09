@@ -1243,6 +1243,14 @@ html,body{overflow-x:hidden; overflow-x:clip}
 .jr-head{text-align:left!important}
 #faq h2{text-align:left!important}
 
+/* Journal feature: copy left (shares the heading's left edge, read first), image right; phones keep image on top */
+@media(min-width:981px){
+  .jr-feature{grid-template-columns:1fr 1.12fr!important}
+  .jr-fcopy{order:1} .jr-fimg{order:2}
+  .jr-fimg::after{left:0!important; right:auto!important; background:linear-gradient(270deg,transparent,rgba(255,255,255,.35))!important}
+}
+.jr-foot{justify-content:flex-start!important}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1797,7 +1805,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
         <span class="jr-tag">Temple Miniatures</span>
         <h3>The Gopuram Manjal–Kumkum Holder, with a Vel that clicks into place.</h3>
         <p>A finely detailed gopuram miniature made to hold manjal and kumkum within its form — with a golden Vel that is drawn magnetically to the tower and settles into place on its own.</p>
-        <div class="jr-foot"><span class="jr-dot">Temple Miniatures</span><i>by Yugaveera</i></div>
+        <div class="jr-foot"><i>by Yugaveera</i></div>
       </div>
     </a>
     <div class="jr-grid">
@@ -1958,7 +1966,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 113</span>
+    <span>Crafted with devotion · Made in India · build 114</span>
   </div>
 </footer>
 
