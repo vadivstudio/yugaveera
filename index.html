@@ -1970,7 +1970,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 115</span>
+    <span>Crafted with devotion · Made in India · build 116</span>
   </div>
 </footer>
 
@@ -2651,6 +2651,8 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       });
       const gBox = new THREE.Box3().setFromObject(inner);
       const gSize = gBox.getSize(new THREE.Vector3()), gC = gBox.getCenter(new THREE.Vector3());
+      /* height the cup must rise to clear the base rim before it moves sideways */
+      const cupLift = new THREE.Box3().setFromObject(parts.cup).getSize(new THREE.Vector3()).y * 1.25;
       const Y = gSize.y;
       inner.position.set(-gC.x, -gC.y, -gC.z); /* center the model on the group's own pivot */
       /* split layout tuned to stay inside the frame */
@@ -2668,6 +2670,11 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
         vel:  new THREE.Vector3(-X*.38,  -Y*.18, gSize.z*.3),
         base: new THREE.Vector3( X*.08,  -Y*.15, 0)
       };
+      /* the cup must land fully clear of the base wall (it starts nested inside it) */
+      { const bB = new THREE.Box3().setFromObject(parts.base), cB = new THREE.Box3().setFromObject(parts.cup);
+        const clearX = (bB.max.x - cB.min.x) + (cB.max.x - cB.min.x) * .08;
+        if (!narrow) { if (ex.cup.x < clearX) ex.cup.x = clearX; }   /* wide frame: land beside the base */
+        else ex.cup.y = Math.max(ex.cup.y, cupLift / 1.25 * 1.06); }   /* narrow frame: settle just above the rim instead of off-frame */
       /* larger in frame; leave headroom for the vertical spread */
       const s = (3.1 / (Y * 1.45)) * (narrow ? .78 : 1);
       group.scale.setScalar(s);
@@ -2716,6 +2723,10 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
         const sig = A.top.toFixed(4)+A.vel.toFixed(4)+A.cup.toFixed(4)+A.base.toFixed(4)+G.i.toFixed(4)+renderer.domElement.width;
         if (sig === lastSig) return; lastSig = sig;   /* nothing moved — skip the render */
         for (const k in parts) parts[k].position.copy(ex[k]).multiplyScalar(A[k]);
+        /* cup: lift straight up out of the base, slide across, settle down (reverse on rejoin) - never through the walls */
+        { const a = A.cup, sm = t => t * t * (3 - 2 * t), c01 = t => t < 0 ? 0 : t > 1 ? 1 : t;
+          const up = sm(c01(a / .35)), across = sm(c01((a - .35) / .35)), down = sm(c01((a - .7) / .3));
+          parts.cup.position.set(ex.cup.x * across, cupLift * up + (ex.cup.y - cupLift) * down, ex.cup.z * across); }
         allMats.forEach(m => { if (m.emissive){ m.emissive.copy(gold); m.emissiveIntensity = G.i; } });
         renderer.shadowMap.needsUpdate = true;
         renderer.render(scene, cam);
