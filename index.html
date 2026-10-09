@@ -1232,6 +1232,17 @@ html,body{overflow-x:hidden; overflow-x:clip}
 @media(min-width:601px) and (max-width:900px){.cs-card,.cs-end{flex:0 0 calc((100% - 2*var(--g)) / 2.3)!important}}
 .cs-end b{font-size:clamp(26px,2.4vw,40px)!important}
 
+/* when every card fits, cards share the row evenly (symmetric edges) and the scroll controls hide (Hick) */
+.cs-card,.cs-end{flex-grow:1!important; flex-shrink:0!important}
+.cs.static .cs-btn,.cs.static .cs-prog{display:none!important}
+
+/* one section-label style everywhere (similarity): the pill labels become the gold-line eyebrow */
+.jr-pill{display:flex!important; align-items:center; gap:12px; width:fit-content; background:none!important; border:0!important; box-shadow:none!important; padding:0!important; border-radius:0!important; -webkit-backdrop-filter:none!important; backdrop-filter:none!important; font:600 13.5px/1 'Cormorant Garamond',serif!important; letter-spacing:.26em!important; text-transform:uppercase; margin-bottom:4px}
+.jr-pill::before{content:''; width:34px; height:1px; background:var(--gold)}
+/* left alignment like every other section heading (centre kept only for the closing CTA) */
+.jr-head{text-align:left!important}
+#faq h2{text-align:left!important}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1947,7 +1958,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 112</span>
+    <span>Crafted with devotion · Made in India · build 113</span>
   </div>
 </footer>
 
@@ -2799,7 +2810,7 @@ data.forEach(function(d,k){
  var en=E('a','cs-end');en.href=d.all;en.target='_blank';en.rel='noopener';en.appendChild(E('span','','Explore'));en.appendChild(E('b','','All '+d.title));en.appendChild(E('i','','\u2192'));ls.appendChild(en);
  cs.appendChild(ls);var pg=E('div','cs-prog'),bar=E('i');pg.appendChild(bar);cs.appendChild(pg);
  function step(){var c=ls.querySelector('.cs-card');return c?c.getBoundingClientRect().width+parseFloat(getComputedStyle(ls).columnGap||getComputedStyle(ls).gap||20):300}
- function upd(){var m=ls.scrollWidth-ls.clientWidth,p=m>0?ls.scrollLeft/m:0,w=ls.clientWidth/ls.scrollWidth;bar.style.width=(w*100)+'%';bar.style.transform='translateX('+(p*(1/w-1)*100)+'%)';pv.disabled=ls.scrollLeft<4;nx.disabled=ls.scrollLeft>=m-4}
+ function upd(){var m=ls.scrollWidth-ls.clientWidth,p=m>0?ls.scrollLeft/m:0,w=ls.clientWidth/ls.scrollWidth;bar.style.width=(w*100)+'%';bar.style.transform='translateX('+(p*(1/w-1)*100)+'%)';pv.disabled=ls.scrollLeft<4;nx.disabled=ls.scrollLeft>=m-4;cs.classList.toggle('static',m<4)}
  pv.addEventListener('click',function(){ls.scrollBy({left:-step(),behavior:'smooth'})});
  nx.addEventListener('click',function(){ls.scrollBy({left:step(),behavior:'smooth'})});
  ls.addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);setTimeout(upd,60);setTimeout(upd,600);
