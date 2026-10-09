@@ -1472,6 +1472,13 @@ footer.site .f-about{margin-top:22px}
 footer.site .f-about p{font-size:15px; line-height:1.7; color:var(--ink2); margin:0 0 14px; max-width:52ch}
 footer.site .f-about p:last-child{margin-bottom:0; color:var(--ink)}
 
+/* New launch: frosted-glass card over a soft glow in the product colours (red ring, gold base) */
+#new-launch .wrap{position:relative; isolation:isolate}
+#new-launch .wrap::before{content:''; position:absolute; inset:-6% -2%; z-index:-1; pointer-events:none;
+  background:radial-gradient(32% 52% at 76% 42%, rgba(196,58,40,.26), transparent 70%), radial-gradient(36% 56% at 24% 62%, rgba(214,180,110,.34), transparent 70%), radial-gradient(30% 40% at 55% 10%, rgba(214,180,110,.18), transparent 70%)}
+#new-launch .k-banner{background:rgba(255,255,255,.52)!important; border:1px solid rgba(255,255,255,.85)!important; box-shadow:inset 0 1px 0 rgba(255,255,255,.95)!important}
+#new-launch .k-banner::before{opacity:.5}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1485,6 +1492,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   .grain,#gl{display:none!important}
 }
 /* the About cards are the one static group that keeps a real blur on desktop (4 small, still cards: cheap) */
+@media(min-width:900px) and (hover:hover){ body #new-launch .k-banner{-webkit-backdrop-filter:blur(22px) saturate(1.3)!important; backdrop-filter:blur(22px) saturate(1.3)!important} }
 @media(min-width:900px) and (hover:hover){ body .ab-cards .ab-card{-webkit-backdrop-filter:blur(16px) saturate(1.3)!important; backdrop-filter:blur(16px) saturate(1.3)!important} }
 </style>
 </head>
@@ -2170,7 +2178,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 136</span>
+    <span>Crafted with devotion · Made in India · build 137</span>
   </div>
 </footer>
 
