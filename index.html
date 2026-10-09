@@ -1329,10 +1329,16 @@ html,body{overflow-x:hidden; overflow-x:clip}
   #motion .mv-thumb{width:90px} #motion .mv-thumb img{width:90px; height:120px; border-radius:10px}
 }
 @media(max-width:900px){
-  #motion .mv-grid{grid-template-columns:1fr; gap:22px}
-  #motion .mv-stage{order:-1; justify-self:stretch; max-width:none; max-height:68vh}
-  #motion .mv-thumb{width:92px}
-  #motion .mv-thumb img{width:92px; height:123px}
+  /* phones/tablet portrait: frame, then its thumbnail strip right under it (they work together), then the caption;
+     the frame is sized by the screen height so frame + strip fit on one screen below the nav */
+  #motion .wrap{display:flex; flex-direction:column}
+  #motion .mv-grid{display:contents}
+  #motion .mv-stage{order:1; justify-self:stretch; width:100%; max-width:none; aspect-ratio:auto; height:clamp(260px, calc(100svh - 330px), 125vw); max-height:none}
+  #motion .mv-strip{order:2; margin-top:14px}
+  #motion .mv-copy{order:3; padding:22px 0 0}
+  #motion .mv-copy .eyebrow{margin-top:0}
+  #motion .mv-thumb{width:84px}
+  #motion .mv-thumb img{width:84px; height:112px; border-radius:10px}
 }
 
 /* ===== scroll performance =====
@@ -2073,7 +2079,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 123</span>
+    <span>Crafted with devotion · Made in India · build 124</span>
   </div>
 </footer>
 
