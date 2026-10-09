@@ -2170,7 +2170,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 135</span>
+    <span>Crafted with devotion · Made in India · build 136</span>
   </div>
 </footer>
 
@@ -2934,13 +2934,17 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
         /* projected AABBs are loose; shrink them a little so labels can sit close to the silhouette */
         for (const k in R){ const q = R[k], dx = (q.r - q.l) * .12, dy = (q.b - q.t) * .06; R[k] = { l: q.l + dx, r: q.r - dx, t: q.t + dy, b: q.b - dy }; }
         const hit = (a, b) => a.l < b.r && a.r > b.l && a.t < b.b && a.b > b.t, placed = [];
+        /* the text panel is an obstacle too (it overlaps the stage on tablets / short screens) */
+        const cpEl = document.querySelector('#anatomy .an-copy');
+        if (cpEl && cpEl.offsetParent){ const c = cpEl.getBoundingClientRect(), cb = { l: c.left - wr.left - 8, t: c.top - wr.top - 8, r: c.right - wr.left + 8, b: c.bottom - wr.top + 8 };
+          if (cb.r > 0 && cb.l < W && cb.b > 0 && cb.t < H) placed.push(cb); }
         for (const k of ['top', 'vel', 'base', 'cup']){
           const el = labs[k]; if (!el) continue;
           const op = Math.max(0, Math.min(1, (A[k] - .72) / .22)); el.style.opacity = op.toFixed(3);
           if (op <= 0 || !R[k]) continue;
           el.classList.remove('flip', 'up', 'down');
           const order = k === 'cup' ? ['up', 'right', 'down', 'left'] : ['left', 'right', 'up', 'down'];
-          let best = null;
+          let best = null, soft = null;   /* soft: may touch a model part, but never text or another label */
           for (const s of order){
             if (s === 'up' || s === 'down') el.classList.add(s); else if (s === 'right') el.classList.add('flip');
             const w = el.offsetWidth, hh = el.offsetHeight, q = R[k], cx = (q.l + q.r) / 2, cy = (q.t + q.b) / 2;
@@ -2952,8 +2956,10 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
             const clear = inside && !Object.keys(R).some(j => j !== k && hit(box, R[j])) && !placed.some(p => hit(box, p));
             const c = { s, x, y, box };
             if (clear){ best = c; break; }
+            if (!soft && inside && !placed.some(p => hit(box, p))) soft = c;
             if (!best && inside) best = c;
           }
+          if (soft && best && placed.some(p => hit(best.box, p))) best = soft;
           if (!best){ const q = R[k]; best = { s: order[0], x: Math.max(4, Math.min(W - el.offsetWidth - 4, (q.l + q.r) / 2 - el.offsetWidth / 2)), y: Math.max(4, q.t - 6 - el.offsetHeight), box: null }; }
           if (best.s === 'up' || best.s === 'down') el.classList.add(best.s); else if (best.s === 'right') el.classList.add('flip');
           el.style.transform = 'translate(' + best.x.toFixed(1) + 'px,' + best.y.toFixed(1) + 'px)';
