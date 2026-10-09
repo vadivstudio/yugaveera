@@ -1688,7 +1688,6 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
       <a class="cs-card" href="https://yugaveera.com/collections/key-chains" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/FullSizeRender_8b5616c5-b73b-40cb-b7d6-f78d28c9b4fc.jpg?v=1780536910&width=800" alt="Keychains and Clickers" loading="lazy" decoding="async"></div><h4>Keychains & Clickers</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
       <a class="cs-card" href="https://yugaveera.com/collections/calendars" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/IMG-1036.png?v=1766914007&width=800" alt="Sabarimala Ayyappa Desk Calendar 2026" loading="lazy" decoding="async"></div><h4>Calendars</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
       <a class="cs-card" href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/Portraitxai_Team_the_cute_nandi_koni_is_sitting_on_the_finger_a3fc770f-4581-4db7-88d9-d89d71cc293e_2.png?v=1772013011&width=800" alt="Periya Nandi miniature — Add-ons" loading="lazy" decoding="async"></div><h4>Add-ons</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
-      <a class="cs-end" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener"><span>Explore</span><b>All Collections</b><i>&rarr;</i></a>
       </div>
       <div class="cs-prog"><i></i></div>
     </div>
@@ -2202,7 +2201,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 143</span>
+    <span>Crafted with devotion · Made in India · build 144</span>
   </div>
 </footer>
 
@@ -3112,7 +3111,7 @@ data.forEach(function(d,k){
   var im=E('div','cs-im'),m=new Image();m.alt=it.name;m.decoding='async';m.loading='lazy';m.src=it.img;im.appendChild(m);
   c.appendChild(im);c.appendChild(E('h4','',it.name));var mo=E('span','cs-more','View piece ');mo.appendChild(E('i','','\u2192'));c.appendChild(mo);
   ls.appendChild(c);cards.push(c)});
- var en=E('a','cs-end');en.href=d.all;en.target='_blank';en.rel='noopener';en.appendChild(E('span','','Explore'));en.appendChild(E('b','','All '+d.title));en.appendChild(E('i','','\u2192'));ls.appendChild(en);
+ /* no 'Explore all' end card: the View all link in each row heading covers it */
  cs.appendChild(ls);var pg=E('div','cs-prog'),bar=E('i');pg.appendChild(bar);cs.appendChild(pg);
  function step(){var c=ls.querySelector('.cs-card');return c?c.getBoundingClientRect().width+parseFloat(getComputedStyle(ls).columnGap||getComputedStyle(ls).gap||20):300}
  function upd(){var m=ls.scrollWidth-ls.clientWidth,p=m>0?ls.scrollLeft/m:0,w=ls.clientWidth/ls.scrollWidth;bar.style.width=(w*100)+'%';bar.style.transform='translateX('+(p*(1/w-1)*100)+'%)';pv.disabled=ls.scrollLeft<4;nx.disabled=ls.scrollLeft>=m-4;cs.classList.toggle('static',m<4)}
