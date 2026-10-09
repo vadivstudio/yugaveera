@@ -1322,6 +1322,10 @@ html,body{overflow-x:hidden; overflow-x:clip}
 #motion .mv-thumb:hover img{transform:translateY(-3px)}
 #motion .mv-thumb.on{border-bottom-color:var(--gold)}
 #motion .mv-thumb.on span{color:var(--gold-text)}
+/* every thumbnail top-aligned on one baseline; each name gets the same two-line slot and stays inside its card */
+#motion .mv-strip{align-items:flex-start; gap:16px}
+#motion .mv-thumb{display:flex; flex-direction:column; align-items:stretch; justify-content:flex-start}
+#motion .mv-thumb span{margin-top:10px; min-height:2.5em; font-size:11px; line-height:1.25; letter-spacing:.04em; overflow:hidden; overflow-wrap:break-word; -webkit-hyphens:none; hyphens:none}
 /* desktop/tablet-landscape: size the frame by the screen height so frame + strip fit on one screen below the nav */
 @media(min-width:901px){
   #motion .mv-stage{width:auto; height:clamp(320px, calc(100vh - 350px), 640px); max-height:none; max-width:100%; aspect-ratio:4/5}
@@ -1337,8 +1341,8 @@ html,body{overflow-x:hidden; overflow-x:clip}
   #motion .mv-strip{order:2; margin-top:14px}
   #motion .mv-copy{order:3; padding:22px 0 0}
   #motion .mv-copy .eyebrow{margin-top:0}
-  #motion .mv-thumb{width:84px}
-  #motion .mv-thumb img{width:84px; height:112px; border-radius:10px}
+  #motion .mv-thumb{width:92px}
+  #motion .mv-thumb img{width:92px; height:120px; border-radius:10px}
 }
 
 /* ===== scroll performance =====
@@ -2079,7 +2083,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 124</span>
+    <span>Crafted with devotion · Made in India · build 125</span>
   </div>
 </footer>
 
