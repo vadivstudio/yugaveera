@@ -1479,6 +1479,17 @@ footer.site .f-about p:last-child{margin-bottom:0; color:var(--ink)}
 #new-launch .k-banner{background:rgba(255,255,255,.52)!important; border:1px solid rgba(255,255,255,.85)!important; box-shadow:inset 0 1px 0 rgba(255,255,255,.95)!important}
 #new-launch .k-banner::before{opacity:.5}
 
+/* In motion: the whole gallery sits on a frosted-glass card over a soft warm glow (frame shrinks by the card padding so frame + strip still fit one screen) */
+#motion{position:relative; isolation:isolate}
+#motion > .wrap{position:relative; padding:clamp(22px,2.6vw,40px)!important; border-radius:30px; background:rgba(255,255,255,.5); border:1px solid rgba(255,255,255,.85); box-shadow:inset 0 1px 0 rgba(255,255,255,.95)}
+#motion::before{content:''; position:absolute; inset:4% 1%; z-index:-1; pointer-events:none;
+  background:radial-gradient(34% 54% at 80% 40%, rgba(214,180,110,.36), transparent 70%), radial-gradient(30% 50% at 18% 30%, rgba(196,90,50,.18), transparent 70%), radial-gradient(40% 40% at 50% 100%, rgba(214,180,110,.22), transparent 70%)}
+@media(min-width:901px){ #motion .mv-stage{height:clamp(300px, calc(100vh - 430px), 600px)!important} }
+@media(max-width:900px){
+  #motion > .wrap{padding:16px!important; border-radius:22px}
+  #motion .mv-stage{height:clamp(220px, calc(100svh - 490px), 125vw)!important}
+}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1492,6 +1503,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   .grain,#gl{display:none!important}
 }
 /* the About cards are the one static group that keeps a real blur on desktop (4 small, still cards: cheap) */
+@media(min-width:900px) and (hover:hover){ body #motion > .wrap{-webkit-backdrop-filter:blur(22px) saturate(1.3)!important; backdrop-filter:blur(22px) saturate(1.3)!important} }
 @media(min-width:900px) and (hover:hover){ body #new-launch .k-banner{-webkit-backdrop-filter:blur(22px) saturate(1.3)!important; backdrop-filter:blur(22px) saturate(1.3)!important} }
 @media(min-width:900px) and (hover:hover){ body .ab-cards .ab-card{-webkit-backdrop-filter:blur(16px) saturate(1.3)!important; backdrop-filter:blur(16px) saturate(1.3)!important} }
 </style>
@@ -2178,7 +2190,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 137</span>
+    <span>Crafted with devotion · Made in India · build 138</span>
   </div>
 </footer>
 
