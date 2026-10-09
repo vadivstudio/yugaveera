@@ -1205,6 +1205,17 @@ html,body{overflow-x:hidden; overflow-x:clip}
   #anatomy .an-pin{display:block; position:sticky; top:80px}
 }
 
+/* Shop by collection — desktop: wrapped row; phones: one swipeable row (continuity: next chip peeks in) */
+.ab-cats-list{display:contents}
+@media(max-width:600px){
+  .ab-cats{display:block!important}
+  .ab-cats > span{display:block; margin:0 0 14px!important}
+  .ab-cats-list{display:flex; flex-wrap:nowrap; gap:8px; overflow-x:auto; scroll-snap-type:x proximity; scrollbar-width:none;
+    margin-right:calc((100% - 100vw) / 2); padding-right:calc((100vw - 100%) / 2); padding-bottom:4px}
+  .ab-cats-list::-webkit-scrollbar{display:none}
+  .ab-cats-list a{flex:0 0 auto; scroll-snap-align:start}
+}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1799,7 +1810,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
         <div class="ab-card" data-reveal><h3>How to order</h3><p>Shop online with pan-India shipping and gift-ready packaging. Buy 2 pieces and get the 3rd at 40% off. For bulk orders call +91 93805 15663.</p></div>
       </div>
     </div>
-    <div class="ab-cats" data-reveal><span>Shop by collection</span><a href="https://yugaveera.com/collections/action-figurines" target="_blank" rel="noopener">Action Figurines</a><a href="https://yugaveera.com/collections/car-hangs" target="_blank" rel="noopener">Car Hangs</a><a href="https://yugaveera.com/collections/dashboard" target="_blank" rel="noopener">Dashboard</a><a href="https://yugaveera.com/collections/temple-miniatures" target="_blank" rel="noopener">Temple Miniatures</a><a href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener">Limited Editions</a><a href="https://yugaveera.com/collections/calendars" target="_blank" rel="noopener">Calendars</a><a href="https://yugaveera.com/collections/key-chains" target="_blank" rel="noopener">Keychains</a><a href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener">Add-ons</a></div>
+    <div class="ab-cats" data-reveal><span>Shop by collection</span><div class="ab-cats-list"><a href="https://yugaveera.com/collections/action-figurines" target="_blank" rel="noopener">Action Figurines</a><a href="https://yugaveera.com/collections/car-hangs" target="_blank" rel="noopener">Car Hangs</a><a href="https://yugaveera.com/collections/dashboard" target="_blank" rel="noopener">Dashboard</a><a href="https://yugaveera.com/collections/temple-miniatures" target="_blank" rel="noopener">Temple Miniatures</a><a href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener">Limited Editions</a><a href="https://yugaveera.com/collections/calendars" target="_blank" rel="noopener">Calendars</a><a href="https://yugaveera.com/collections/key-chains" target="_blank" rel="noopener">Keychains</a><a href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener">Add-ons</a></div></div>
   </div>
 </section>
 
@@ -1920,7 +1931,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 109</span>
+    <span>Crafted with devotion · Made in India · build 110</span>
   </div>
 </footer>
 
