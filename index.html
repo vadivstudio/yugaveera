@@ -1148,6 +1148,52 @@ nav .btn{height:40px; padding:0 22px!important}
 #hero .hr-link:hover,.hr-link:hover,.cs-all:hover,.ix-all:hover,a:hover .cs-more{color:#8A6D30!important; border-color:#8A6D30!important; gap:12px}
 @media(max-width:700px){.btn,.ab-cats a{height:46px; padding:0 22px!important; font-size:13px!important} .cc-btn,.cs-btn{width:44px!important; height:44px!important}}
 
+/* ===== design-system pass (contrast · type scale · effects · targets · states) ===== */
+/* Colour & contrast — one gold hue in three shades: decor (lines, dots) keeps var(--gold);
+   small gold text uses --gold-text (5.1:1 on the page grey, WCAG AA); big italic accents --gold-lg (3.2:1, AA large) */
+:root{--gold-text:#78602F; --gold-lg:#9E7F3E}
+.eyebrow,.an-cap,#anatomy .an-cap,.t-step small,.q-card .q-src,.mo-quote cite,.cc-meta small,.ab-cats > span,.announce,.jr-pill{color:var(--gold-text)!important}
+#hero .eyebrow{color:rgba(0,0,0,.6)!important}
+h1 .accent,h1 .accent i,h2 em,#hero .hr h3 em{color:var(--gold-lg)!important; -webkit-text-fill-color:var(--gold-lg)!important}
+/* small gold glyphs (+, %, offer accent) need the AA text shade */
+.stat b em,.mo-stats b em,.hp b em,.offer-band h2 em{color:var(--gold-text)!important; -webkit-text-fill-color:var(--gold-text)!important}
+/* Effects — no decorative drop shadows or gradient text; light borders carry the cards */
+.ab-card,.t-step,.acc,.q-card,.stat,.jr-card,.jr-feature,.jr-pill,.k-banner,.k-img,.offer-band,#cta .wrap,.cc-im,.mo-t,.conn-card,.p-card,.hp{box-shadow:none!important}
+.t-step,.acc,.q-card,.stat,.ab-card,.conn-card{border:1px solid rgba(0,0,0,.08)!important}
+#why h2{background:none!important; -webkit-text-fill-color:#0a0a0a!important; color:#0a0a0a!important}
+#why .svc-list{margin-left:0!important}   /* alignment: share the heading's left edge (the indent was for the removed 01-04 numbers) */
+#hero .hr p,#anatomy .an-copy p{max-width:60ch}   /* line length on stacked tablet layouts */
+/* Typography — avoid multi-line all caps: collection taglines become italic sentence case */
+.cc-meta small{text-transform:none!important; letter-spacing:.01em!important; font-style:italic; font-weight:500!important; font-size:16px!important}
+/* Type scale (tablet + desktop; phones have their own scale above): one size per level */
+@media(min-width:601px){
+  section h2,.sec-head h2,#story h2,#anatomy h2,#cta h2,#why h2{font-size:clamp(40px,4.6vw,76px)!important; font-weight:400!important; line-height:1!important}
+  .cs-head h3,#hero .hr h3,.jr-fcopy h3,#anatomy .an-copy h3,.offer-band h2{font-size:clamp(28px,2.8vw,44px)!important; font-weight:400!important; line-height:1.08!important}
+  .cc-meta h3,.svc-body h3,.ab-card h3,.conn-card h3,.t-step h3{font-size:clamp(22px,1.8vw,26px)!important; font-weight:500!important; line-height:1.18!important; text-transform:none!important; letter-spacing:0!important}
+  .cs-card h4,.jr-card h4{font-size:20px!important; font-weight:500!important; line-height:1.25!important}
+  section p{font-size:18px!important; line-height:1.65!important}
+  .t-step p,#anatomy .an-copy p,.cc-meta p,.jr-card p,.ab-card p,.conn-card p,#hero .hr p,.svc-body p{font-size:16px!important; line-height:1.6!important}
+  .svc-body p{max-width:64ch}   /* line length <= ~80 characters */
+  section .lead,#hero .lead,.mo-copy > p,.ab-intro p{font-size:20px!important; line-height:1.6!important}
+  #testimonials .q-card p,.mo-quote p{font-size:20px!important; line-height:1.55!important}
+}
+/* Fitts's law — every tap target at least 44px */
+.menu-btn{min-width:44px; min-height:44px; align-items:center; justify-content:center}
+@media(max-width:899px){nav .btn{height:44px!important} nav .logo{min-height:44px; display:inline-flex; align-items:center}}
+.hr-link,.cs-all{position:relative}
+.hr-link::before,.cs-all::before{content:''; position:absolute; inset:-12px -8px}
+@media(max-width:600px){
+  footer.site a{display:inline-block; padding:10px 0}
+  .announce{text-transform:none!important; letter-spacing:.02em!important; font-size:12px!important}
+  /* one size per level on phones too */
+  .cc-meta h3,.svc-body h3,.ab-card h3,.conn-card h3,.t-step h3{font-size:20px!important; line-height:1.2!important; text-transform:none!important; letter-spacing:0!important}
+  #offer h2,.offer-band h2,.jr-fcopy h3,#anatomy .an-copy h3{font-size:24px!important; line-height:1.15!important}
+  .cs-card h4,.jr-card h4{font-size:17px!important; line-height:1.3!important}
+  #hero .eyebrow{font-size:11.5px!important; letter-spacing:.08em!important; white-space:nowrap}
+}
+/* States — visible keyboard focus on every interactive element */
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold-text); outline-offset:3px; border-radius:6px}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1861,7 +1907,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 107</span>
+    <span>Crafted with devotion · Made in India · build 108</span>
   </div>
 </footer>
 
