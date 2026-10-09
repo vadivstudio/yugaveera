@@ -1282,20 +1282,23 @@ html,body{overflow-x:hidden; overflow-x:clip}
 /* Anatomy part labels: name + gold leader line + dot, shown only while the parts are apart */
 .an-labels{position:absolute; inset:0; pointer-events:none; z-index:2}
 .an-lab{position:absolute; left:0; top:0; display:flex; align-items:center; gap:10px; white-space:nowrap; opacity:0; transition:opacity .35s; will-change:transform,opacity}
-.an-lab b{font:600 12.5px/1 'Cormorant Garamond',serif; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-text)}
-.an-lab i{position:relative; width:46px; height:1px; background:var(--gold)}
-.an-lab i::after{content:''; position:absolute; right:-3px; top:-2.5px; width:6px; height:6px; border-radius:50%; background:var(--gold)}
+/* frosted-glass pill: dark text on translucent white keeps the name readable over the 3D scene (the one place a blur earns its keep) */
+.an-lab b{display:inline-block; padding:8px 14px 7px; border-radius:100px; font:700 12.5px/1 'Cormorant Garamond',serif; letter-spacing:.16em; text-transform:uppercase; color:#0a0a0a;
+  background:rgba(255,255,255,.62); -webkit-backdrop-filter:blur(10px) saturate(1.3)!important; backdrop-filter:blur(10px) saturate(1.3)!important;
+  border:1px solid rgba(255,255,255,.85); box-shadow:0 0 0 1px rgba(176,141,69,.28), 0 8px 22px -12px rgba(0,0,0,.35)}
+.an-lab i{position:relative; width:46px; height:1.5px; background:var(--gold-text)}
+.an-lab i::after{content:''; position:absolute; right:-4px; top:-3.25px; width:8px; height:8px; border-radius:50%; background:var(--gold-text); box-shadow:0 0 0 3px rgba(255,255,255,.75)}
 .an-lab.flip{flex-direction:row-reverse}
-.an-lab.flip i::after{right:auto; left:-3px}
+.an-lab.flip i::after{right:auto; left:-4px}
 .an-lab.up{flex-direction:column; gap:6px}
-.an-lab.up i{width:1px; height:24px}
-.an-lab.up i::after{right:auto; left:-2.5px; top:auto; bottom:-3px}
+.an-lab.up i{width:1.5px; height:24px}
+.an-lab.up i::after{right:auto; left:-3.25px; top:auto; bottom:-4px}
 .an-lab.down{flex-direction:column-reverse; gap:6px}
-.an-lab.down i{width:1px; height:24px}
-.an-lab.down i::after{right:auto; left:-2.5px; top:-3px}
+.an-lab.down i{width:1.5px; height:24px}
+.an-lab.down i::after{right:auto; left:-3.25px; top:-4px}
 .an-lab .ls{display:none}
 @media(max-width:600px){.an-lab .lf{display:none} .an-lab .ls{display:inline} .an-lab.up i,.an-lab.down i{height:16px}}
-@media(max-width:600px){.an-lab b{font-size:11px; letter-spacing:.12em} .an-lab i{width:22px}}
+@media(max-width:600px){.an-lab b{font-size:11px; letter-spacing:.12em; padding:7px 11px 6px} .an-lab i{width:22px}}
 
 /* In motion: cover image + slowly drifting strip; tap a thumbnail to play its video (muted) in the big frame */
 #motion .mv-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.8fr); gap:clamp(28px,5vw,80px); align-items:end}
@@ -2064,7 +2067,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 120</span>
+    <span>Crafted with devotion · Made in India · build 121</span>
   </div>
 </footer>
 
