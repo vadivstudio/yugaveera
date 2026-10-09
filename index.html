@@ -1322,6 +1322,12 @@ html,body{overflow-x:hidden; overflow-x:clip}
 #motion .mv-thumb:hover img{transform:translateY(-3px)}
 #motion .mv-thumb.on{border-bottom-color:var(--gold)}
 #motion .mv-thumb.on span{color:var(--gold-text)}
+/* desktop/tablet-landscape: size the frame by the screen height so frame + strip fit on one screen below the nav */
+@media(min-width:901px){
+  #motion .mv-stage{width:auto; height:clamp(320px, calc(100vh - 350px), 640px); max-height:none; max-width:100%; aspect-ratio:4/5}
+  #motion .mv-strip{margin-top:28px}
+  #motion .mv-thumb{width:90px} #motion .mv-thumb img{width:90px; height:120px; border-radius:10px}
+}
 @media(max-width:900px){
   #motion .mv-grid{grid-template-columns:1fr; gap:22px}
   #motion .mv-stage{order:-1; justify-self:stretch; max-width:none; max-height:68vh}
@@ -2067,7 +2073,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 121</span>
+    <span>Crafted with devotion · Made in India · build 122</span>
   </div>
 </footer>
 
