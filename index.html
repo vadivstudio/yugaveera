@@ -722,8 +722,6 @@ footer.site h4{color:rgba(255,255,255,.6)}
 @media(max-width:900px){#hero{min-height:auto; padding-top:118px} #hero .hero-points .scroll-hint{display:none} #hero .hero-points{flex-wrap:wrap}}
 
 /* ===== collections carousel ===== */
-#collections{padding-left:0; padding-right:0; overflow:hidden}
-#collections .wrap{padding:0}
 .cc{--edge:max(calc((100vw - min(1760px,94vw)) / 2), 3vw); margin-top:clamp(26px,4vw,50px)}
 .cc-track{display:flex; gap:clamp(18px,2vw,32px); overflow-x:auto; scroll-snap-type:x proximity; scroll-padding-left:var(--edge); padding:6px var(--edge) 10px; scrollbar-width:none; cursor:grab; -webkit-overflow-scrolling:touch}
 .cc-track::-webkit-scrollbar{display:none}
@@ -891,8 +889,6 @@ img,video,canvas{max-width:100%}
   .mo-masonry{gap:12px}
   .mo-t{border-radius:16px}
   .mo-t figcaption{font-size:11px; left:10px; bottom:10px; padding:5px 10px}
-  #collections{padding-left:0; padding-right:0}
-  #collections .wrap{padding:0 clamp(18px,4.5vw,32px)}
   .cc{--edge:clamp(18px,4.5vw,32px)}
   .cc-ctrl{gap:14px}
   .cc-meta h3{font-size:clamp(26px,7vw,34px)}
@@ -1345,6 +1341,10 @@ html,body{overflow-x:hidden; overflow-x:clip}
   #motion .mv-thumb img{width:92px; height:120px; border-radius:10px}
 }
 
+/* Featured Collections uses the product-carousel cards; its heading is an h2 styled like the carousel headings */
+#collections .cs-head h2{margin:0; font-size:clamp(28px,2.8vw,44px)!important; font-weight:400!important; line-height:1.08!important; text-transform:uppercase; letter-spacing:0}
+@media(max-width:600px){#collections .cs-head h2{font-size:24px!important; line-height:1.15!important}}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1500,58 +1500,26 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
 </section>
 
-<!-- 03 FEATURED COLLECTIONS -->
+<!-- 03 FEATURED COLLECTIONS: same card carousel as Featured Products (heading + a full row fit one screen) -->
 <section id="collections">
   <div class="wrap">
-    <div class="sec-head">
-      <div>
+    <div class="cs">
+      <div class="cs-head">
         <h2 data-reveal>Featured Collections</h2>
+        <div class="cs-tools"><a class="cs-all" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener">View all &rarr;</a><button type="button" class="cs-btn" aria-label="Previous">&larr;</button><button type="button" class="cs-btn" aria-label="Next">&rarr;</button></div>
       </div>
-      <a class="btn" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener" data-reveal>View All</a>
-    </div>
-  </div>
-  <div class="cc" data-reveal>
-    <div class="cc-track" id="ccTrack">
-      <a class="cc-slide" href="https://yugaveera.com/collections/temple-miniatures" target="_blank" rel="noopener">
-        <div class="cc-im"><img src="https://yugaveera.com/cdn/shop/files/5B3CD6A0-7C5B-4ECD-B43C-80C77214C303.jpg?v=1783076465&width=800" alt="Temple Miniatures" loading="lazy"></div>
-        <div class="cc-meta"><h3>Temple Miniatures</h3><small>Sacred architecture, shrunk with love</small><p>Gopurams of Tiruchendur, Srirangam and Madurai recreated tier by tier — functional manjal–kumkum holders with magnetic Vels.</p></div>
-      </a>
-      <a class="cc-slide" href="https://yugaveera.com/collections/action-figurines" target="_blank" rel="noopener">
-        <div class="cc-im"><img src="https://yugaveera.com/cdn/shop/files/IMG-3858.png?v=1772631186&width=800" alt="Action Figurines" loading="lazy"></div>
-        <div class="cc-meta"><h3>Action Figurines</h3><small>Legends in motion</small><p>Dynamic sculpted forms of gods and heroes caught mid-story — designer-toy energy with the soul of temple sculpture.</p></div>
-      </a>
-      <a class="cc-slide" href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener">
-        <div class="cc-im"><img src="https://yugaveera.com/cdn/shop/files/9628C8DD-A4FA-4047-8EAD-B8F69E780DB0.png?v=1771042526&width=800" alt="Limited Editions" loading="lazy"></div>
-        <div class="cc-meta"><h3>Limited Editions</h3><small>Numbered. Rare. Gone when gone.</small><p>Small-batch colourways and one-time sculpts. When a run sells out, it is never reprinted.</p></div>
-      </a>
-      <a class="cc-slide" href="https://yugaveera.com/collections/car-hangs" target="_blank" rel="noopener">
-        <div class="cc-im"><img src="https://yugaveera.com/cdn/shop/files/FullSizeRender_cfb23c25-d0e7-47b9-a1aa-ddecdb36b0a3.jpg?v=1779762151&width=800" alt="Car Hangs and Dashboard" loading="lazy"></div>
-        <div class="cc-meta"><h3>Car Hangs</h3><small>Guardians for the road</small><p>Divine figures that travel with you — balanced, lightweight, finished to catch sunlight through the windshield.</p></div>
-      </a>
-      <a class="cc-slide" href="https://yugaveera.com/collections/dashboard" target="_blank" rel="noopener">
-        <div class="cc-im"><img src="https://yugaveera.com/cdn/shop/files/IMG-7692.png?v=1782297609&width=800" alt="Dashboard figurines" loading="lazy"></div>
-        <div class="cc-meta"><h3>Dashboard</h3><small>For drive &amp; desk</small><p>Compact ~3.5 inch figurines with secure mounting — present without crowding, calm in traffic, at home beside a keyboard.</p></div>
-      </a>
-      <a class="cc-slide" href="https://yugaveera.com/collections/key-chains" target="_blank" rel="noopener">
-        <div class="cc-im"><img src="https://yugaveera.com/cdn/shop/files/FullSizeRender_8b5616c5-b73b-40cb-b7d6-f78d28c9b4fc.jpg?v=1780536910&width=800" alt="Keychains and Clickers" loading="lazy"></div>
-        <div class="cc-meta"><h3>Keychains & Clickers</h3><small>Everyday carry, elevated</small><p>Blessings that fit in your pocket — clickers, fidgets and icons tough enough for daily keys.</p></div>
-      </a>
-      <a class="cc-slide" href="https://yugaveera.com/collections/calendars" target="_blank" rel="noopener">
-        <div class="cc-im"><img src="https://yugaveera.com/cdn/shop/files/IMG-1036.png?v=1766914007&width=800" alt="Sabarimala Ayyappa Desk Calendar 2026" loading="lazy"></div>
-        <div class="cc-meta"><h3>Calendars</h3><small>The year, sanctified</small><p>Desk calendars for 2026 — Sabarimala Ayyappa, Lingam, Shiva Himalaya. A daily glance that doubles as a moment of pause.</p></div>
-      </a>
-      <a class="cc-slide" href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener">
-        <div class="cc-im"><img src="https://yugaveera.com/cdn/shop/files/Portraitxai_Team_the_cute_nandi_koni_is_sitting_on_the_finger_a3fc770f-4581-4db7-88d9-d89d71cc293e_2.png?v=1772013011&width=800" alt="Periya Nandi miniature — Add-ons" loading="lazy"></div>
-        <div class="cc-meta"><h3>Add-ons</h3><small>Ritual accessories</small><p>Vels, Trishulams, Nandis and magnetic attachments — small pieces that complete and extend your Yugaveera icons.</p></div>
-      </a>
-    </div>
-    <div class="cc-ctrl">
-      <div class="cc-count"><b id="ccCur">01</b><span>/ 08</span></div>
-      <div class="cc-bar"><i id="ccBar"></i></div>
-      <div class="cc-arrows">
-        <button class="cc-btn" id="ccPrev" aria-label="Previous collection"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <button class="cc-btn" id="ccNext" aria-label="Next collection"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button>
+      <div class="cs-list">
+      <a class="cs-card" href="https://yugaveera.com/collections/temple-miniatures" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/5B3CD6A0-7C5B-4ECD-B43C-80C77214C303.jpg?v=1783076465&width=800" alt="Temple Miniatures" loading="lazy" decoding="async"></div><h4>Temple Miniatures</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
+      <a class="cs-card" href="https://yugaveera.com/collections/action-figurines" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/IMG-3858.png?v=1772631186&width=800" alt="Action Figurines" loading="lazy" decoding="async"></div><h4>Action Figurines</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
+      <a class="cs-card" href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/9628C8DD-A4FA-4047-8EAD-B8F69E780DB0.png?v=1771042526&width=800" alt="Limited Editions" loading="lazy" decoding="async"></div><h4>Limited Editions</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
+      <a class="cs-card" href="https://yugaveera.com/collections/car-hangs" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/FullSizeRender_cfb23c25-d0e7-47b9-a1aa-ddecdb36b0a3.jpg?v=1779762151&width=800" alt="Car Hangs and Dashboard" loading="lazy" decoding="async"></div><h4>Car Hangs</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
+      <a class="cs-card" href="https://yugaveera.com/collections/dashboard" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/IMG-7692.png?v=1782297609&width=800" alt="Dashboard figurines" loading="lazy" decoding="async"></div><h4>Dashboard</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
+      <a class="cs-card" href="https://yugaveera.com/collections/key-chains" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/FullSizeRender_8b5616c5-b73b-40cb-b7d6-f78d28c9b4fc.jpg?v=1780536910&width=800" alt="Keychains and Clickers" loading="lazy" decoding="async"></div><h4>Keychains & Clickers</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
+      <a class="cs-card" href="https://yugaveera.com/collections/calendars" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/IMG-1036.png?v=1766914007&width=800" alt="Sabarimala Ayyappa Desk Calendar 2026" loading="lazy" decoding="async"></div><h4>Calendars</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
+      <a class="cs-card" href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener"><div class="cs-im"><img src="https://yugaveera.com/cdn/shop/files/Portraitxai_Team_the_cute_nandi_koni_is_sitting_on_the_finger_a3fc770f-4581-4db7-88d9-d89d71cc293e_2.png?v=1772013011&width=800" alt="Periya Nandi miniature — Add-ons" loading="lazy" decoding="async"></div><h4>Add-ons</h4><span class="cs-more">View collection <i>&rarr;</i></span></a>
+      <a class="cs-end" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener"><span>Explore</span><b>All Collections</b><i>&rarr;</i></a>
       </div>
+      <div class="cs-prog"><i></i></div>
     </div>
   </div>
 </section>
@@ -2083,7 +2051,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 125</span>
+    <span>Crafted with devotion · Made in India · build 126</span>
   </div>
 </footer>
 
@@ -3049,6 +3017,21 @@ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es
     else if (visible && cur >= 0 && v.paused) v.play().catch(function(){});
   }, { threshold: .15 }).observe(sec);
   else visible = true;
+})();
+</script>
+<script>
+/* Featured Collections carousel: arrows, progress bar and card reveal, same behaviour as the product carousels */
+(function(){
+  var cs=document.querySelector('#collections .cs'); if(!cs) return;
+  var ls=cs.querySelector('.cs-list'), b=cs.querySelectorAll('.cs-btn'), pv=b[0], nx=b[1], bar=cs.querySelector('.cs-prog i'), cards=[].slice.call(ls.querySelectorAll('.cs-card'));
+  cards.forEach(function(c,i){ c.style.setProperty('--d',(i%5*.1)+'s'); });
+  function step(){ var c=ls.querySelector('.cs-card'); return c ? c.getBoundingClientRect().width+parseFloat(getComputedStyle(ls).columnGap||20) : 300; }
+  function upd(){ var m=ls.scrollWidth-ls.clientWidth, p=m>0?ls.scrollLeft/m:0, w=ls.clientWidth/ls.scrollWidth; bar.style.width=(w*100)+'%'; bar.style.transform='translateX('+(p*(1/w-1)*100)+'%)'; pv.disabled=ls.scrollLeft<4; nx.disabled=ls.scrollLeft>=m-4; cs.classList.toggle('static',m<4); }
+  pv.addEventListener('click',function(){ ls.scrollBy({left:-step(),behavior:'smooth'}); });
+  nx.addEventListener('click',function(){ ls.scrollBy({left:step(),behavior:'smooth'}); });
+  ls.addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd); setTimeout(upd,60); setTimeout(upd,600);
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:.1}); cards.forEach(function(c){ io.observe(c); }); }
+  else cards.forEach(function(c){ c.classList.add('in'); });
 })();
 </script>
 </body>
