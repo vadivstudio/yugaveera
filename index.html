@@ -1297,6 +1297,35 @@ html,body{overflow-x:hidden; overflow-x:clip}
 @media(max-width:600px){.an-lab .lf{display:none} .an-lab .ls{display:inline} .an-lab.up i,.an-lab.down i{height:16px}}
 @media(max-width:600px){.an-lab b{font-size:11px; letter-spacing:.12em} .an-lab i{width:22px}}
 
+/* In motion: cover image + slowly drifting strip; tap a thumbnail to play its video (muted) in the big frame */
+#motion .mv-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.8fr); gap:clamp(28px,5vw,80px); align-items:end}
+#motion .mv-copy{padding-bottom:8px}
+#motion .mv-tag{display:block; font:600 13px/1 'Cormorant Garamond',serif; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-text); margin:18px 0 14px}
+#motion h2{margin:0 0 18px; transition:opacity .35s}
+#motion p{max-width:46ch; margin-bottom:26px; transition:opacity .35s}
+#motion .mv-stage{position:relative; justify-self:end; width:100%; max-width:560px; aspect-ratio:4/5; max-height:min(72vh,700px); border-radius:22px; overflow:hidden; background:#ddd; cursor:pointer}
+#motion .mv-cover,#motion .mv-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; transition:opacity .5s}
+#motion .mv-video{opacity:0}
+#motion.playing .mv-video{opacity:1}
+#motion.playing .mv-cover,#motion.playing .mv-play{opacity:0; pointer-events:none}
+#motion .mv-play{position:absolute; left:50%; top:50%; width:72px; height:72px; margin:-36px 0 0 -36px; border-radius:50%; border:1px solid rgba(255,255,255,.85); background:rgba(10,10,10,.35); cursor:pointer; transition:opacity .4s, transform .3s}
+#motion .mv-play i{position:absolute; left:29px; top:24px; border-style:solid; border-width:12px 0 12px 19px; border-color:transparent transparent transparent #fff}
+#motion .mv-play:hover{transform:scale(1.06)}
+#motion .mv-strip{display:flex; gap:12px; overflow-x:auto; scrollbar-width:none; margin-top:clamp(28px,4vw,48px); padding:4px 0 6px; -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent); mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+#motion .mv-strip::-webkit-scrollbar{display:none}
+#motion .mv-thumb{flex:0 0 auto; width:110px; padding:0 0 8px; border:0; background:none; cursor:pointer; text-align:left; border-bottom:2px solid transparent; transition:border-color .3s}
+#motion .mv-thumb img{display:block; width:110px; height:147px; object-fit:cover; border-radius:12px; transition:transform .4s}
+#motion .mv-thumb span{display:block; margin-top:8px; font:600 11.5px/1.2 'Cormorant Garamond',serif; letter-spacing:.12em; text-transform:uppercase; color:var(--ink2)}
+#motion .mv-thumb:hover img{transform:translateY(-3px)}
+#motion .mv-thumb.on{border-bottom-color:var(--gold)}
+#motion .mv-thumb.on span{color:var(--gold-text)}
+@media(max-width:900px){
+  #motion .mv-grid{grid-template-columns:1fr; gap:22px}
+  #motion .mv-stage{order:-1; justify-self:stretch; max-width:none; max-height:68vh}
+  #motion .mv-thumb{width:92px}
+  #motion .mv-thumb img{width:92px; height:123px}
+}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1937,6 +1966,28 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
 </section>
 
+<!-- 09a IN MOTION: cover image; tap a thumbnail to play its video (muted) in the big frame -->
+<section id="motion">
+  <div class="wrap">
+    <div class="mv-grid">
+      <div class="mv-copy">
+        <div class="eyebrow" data-reveal>In motion</div>
+        <span class="mv-tag" id="mvTag">Watch the collection</span>
+        <h2 id="mvTitle">See them move.</h2>
+        <p id="mvDesc">Tap any piece below to watch it play.</p>
+        <a class="hr-link" id="mvLink" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener">Shop the collection <span>&rarr;</span></a>
+      </div>
+      <div class="mv-stage">
+        <img class="mv-cover" src="motion/mayil-vahanan.jpg" alt="Mayil Vahanan, Murugan on his peacock" loading="lazy">
+        <video class="mv-video" muted playsinline loop preload="none" aria-label="Product video"></video>
+        <button type="button" class="mv-play" aria-label="Play Mayil Vahanan"><i></i></button>
+      </div>
+    </div>
+    <div class="mv-strip" aria-label="Choose a piece to watch"><button type="button" class="mv-thumb" data-i="0"><img src="motion/amman-t.jpg" alt="Play Amman" loading="lazy" width="110" height="147"><span>Amman</span></button><button type="button" class="mv-thumb" data-i="1"><img src="motion/shiva-hand-t.jpg" alt="Play Shiva’s Hand" loading="lazy" width="110" height="147"><span>Shiva’s Hand</span></button><button type="button" class="mv-thumb" data-i="2"><img src="motion/namashivaya-t.jpg" alt="Play Namashivaya" loading="lazy" width="110" height="147"><span>Namashivaya</span></button><button type="button" class="mv-thumb" data-i="3"><img src="motion/ayyappa-t.jpg" alt="Play Ayyappa" loading="lazy" width="110" height="147"><span>Ayyappa</span></button><button type="button" class="mv-thumb" data-i="4"><img src="motion/meditating-murugan-t.jpg" alt="Play Murugan" loading="lazy" width="110" height="147"><span>Murugan</span></button><button type="button" class="mv-thumb" data-i="5"><img src="motion/mayil-vahanan-t.jpg" alt="Play Mayil Vahanan" loading="lazy" width="110" height="147"><span>Mayil Vahanan</span></button><button type="button" class="mv-thumb" data-i="6"><img src="motion/king-kandhan-t.jpg" alt="Play King Kandhan" loading="lazy" width="110" height="147"><span>King Kandhan</span></button><button type="button" class="mv-thumb" data-i="7"><img src="motion/muneeswaran-t.jpg" alt="Play Muneeswaran" loading="lazy" width="110" height="147"><span>Muneeswaran</span></button><button type="button" class="mv-thumb" data-i="0" aria-hidden="true" tabindex="-1"><img src="motion/amman-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Amman</span></button><button type="button" class="mv-thumb" data-i="1" aria-hidden="true" tabindex="-1"><img src="motion/shiva-hand-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Shiva’s Hand</span></button><button type="button" class="mv-thumb" data-i="2" aria-hidden="true" tabindex="-1"><img src="motion/namashivaya-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Namashivaya</span></button><button type="button" class="mv-thumb" data-i="3" aria-hidden="true" tabindex="-1"><img src="motion/ayyappa-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Ayyappa</span></button><button type="button" class="mv-thumb" data-i="4" aria-hidden="true" tabindex="-1"><img src="motion/meditating-murugan-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Murugan</span></button><button type="button" class="mv-thumb" data-i="5" aria-hidden="true" tabindex="-1"><img src="motion/mayil-vahanan-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Mayil Vahanan</span></button><button type="button" class="mv-thumb" data-i="6" aria-hidden="true" tabindex="-1"><img src="motion/king-kandhan-t.jpg" alt="" loading="lazy" width="110" height="147"><span>King Kandhan</span></button><button type="button" class="mv-thumb" data-i="7" aria-hidden="true" tabindex="-1"><img src="motion/muneeswaran-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Muneeswaran</span></button></div>
+  </div>
+  <script type="application/json" id="mvData">[{"s":"amman","tag":"Ritual","t":"Manjal and kumkum, every morning.","d":"The Amman holder keeps both at the heart of the pooja shelf.","u":"https://yugaveera.com/products/amman-sacred-manjal-kumkum-holder"},{"s":"shiva-hand","tag":"Ritual","t":"Vibuthi, held in His hand.","d":"Shiva’s Hand cradles a small bowl of sacred ash, always within reach.","u":"https://yugaveera.com/products/shiva-s-hand-vibuthi-holder-%F0%9F%94%B1"},{"s":"namashivaya","tag":"On the road","t":"Namashivaya, on every drive.","d":"The Shiva tilak car hang, from its box to the mirror in seconds.","u":"https://yugaveera.com/products/namashivaya-shiva-tilak-car-hang"},{"s":"ayyappa","tag":"On the road","t":"Swami Ayyappa rides along.","d":"A 3.5-inch dashboard figurine that clicks on, and lifts off when you park.","u":"https://yugaveera.com/products/ayyappa-3-5-quick-remove-car-dashboard-figurine-yugaveera"},{"s":"meditating-murugan","tag":"On the road","t":"Calm in traffic.","d":"Meditating Murugan, the dashboard edition.","u":"https://yugaveera.com/products/meditating-murugan-dashboard-edition"},{"s":"mayil-vahanan","tag":"Collector","t":"Mayil Vahanan.","d":"Murugan on his peacock, wings spread wide.","u":"https://yugaveera.com/products/mayil-vahanan"},{"s":"king-kandhan","tag":"Collector","t":"The throne edition.","d":"King Kandhan, seated in gold-trimmed detail.","u":"https://yugaveera.com/products/king-kandhan-throne-edition"},{"s":"muneeswaran","tag":"On the road","t":"A guardian on the dash.","d":"Muneeswaran, the 3.5-inch magnetic dashboard edition.","u":"https://yugaveera.com/products/muneeswaran-3-5-inch-magnetic-dashboard-edition"}]</script>
+</section>
+
 <!-- 09b CONNECT -->
 <section id="connect">
   <div class="wrap">
@@ -2013,7 +2064,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 119</span>
+    <span>Crafted with devotion · Made in India · build 120</span>
   </div>
 </footer>
 
@@ -2942,6 +2993,43 @@ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es
   new IntersectionObserver(function(es){ es.forEach(function(e){
     if(e.isIntersecting){ if(v.preload!=='auto') v.preload='auto'; v.play().catch(function(){}); } else v.pause();
   }); },{ rootMargin:'200px 0px', threshold:.15 }).observe(v);
+})();
+</script>
+<script>
+/* In motion gallery: the thumbnail strip drifts slowly (pauses on hover/touch, off-screen, reduced motion);
+   tapping a thumbnail - or the cover - plays that piece's video, muted and looping, in the big frame */
+(function(){
+  var sec = document.getElementById('motion'); if (!sec) return;
+  var D = JSON.parse(document.getElementById('mvData').textContent), v = sec.querySelector('.mv-video'), strip = sec.querySelector('.mv-strip');
+  var tag = document.getElementById('mvTag'), title = document.getElementById('mvTitle'), desc = document.getElementById('mvDesc'), link = document.getElementById('mvLink');
+  var cur = -1, visible = false, held = 0, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function select(i){
+    var c = D[i]; if (!c) return; cur = i;
+    sec.querySelectorAll('.mv-thumb').forEach(function(b){ b.classList.toggle('on', +b.dataset.i === i); });
+    title.style.opacity = desc.style.opacity = 0;
+    setTimeout(function(){ tag.textContent = c.tag; title.textContent = c.t; desc.textContent = c.d; link.href = c.u; link.firstChild.nodeValue = 'View piece '; title.style.opacity = desc.style.opacity = 1; }, 200);
+    v.poster = 'motion/' + c.s + '.jpg'; v.src = 'motion/' + c.s + '.mp4'; v.muted = true;
+    var p = v.play(); if (p && p.catch) p.catch(function(){});
+    sec.classList.add('playing');
+  }
+  sec.querySelectorAll('.mv-thumb').forEach(function(b){ b.addEventListener('click', function(){ held = performance.now() + 4000; select(+b.dataset.i); }); });
+  sec.querySelector('.mv-stage').addEventListener('click', function(){ if (cur < 0) select(5); else if (v.paused) v.play().catch(function(){}); else v.pause(); });
+  /* slow drift; the list is doubled so it wraps seamlessly */
+  ['pointerenter', 'pointerdown', 'touchstart', 'focusin', 'wheel'].forEach(function(ev){ strip.addEventListener(ev, function(){ held = performance.now() + 3500; }, { passive: true }); });
+  var last = 0, acc = 0;
+  function tick(t){
+    requestAnimationFrame(tick); var dt = last ? Math.min(64, t - last) : 16; last = t;
+    if (!visible || reduce || t < held) return;
+    acc += dt * 0.03; if (acc < 1) return; var step = Math.floor(acc); acc -= step;
+    var half = strip.scrollWidth / 2; strip.scrollLeft += step; if (strip.scrollLeft >= half) strip.scrollLeft -= half;
+  }
+  requestAnimationFrame(tick);
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){
+    visible = es[0].isIntersecting;
+    if (!visible && !v.paused) v.pause();
+    else if (visible && cur >= 0 && v.paused) v.play().catch(function(){});
+  }, { threshold: .15 }).observe(sec);
+  else visible = true;
 })();
 </script>
 </body>
