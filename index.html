@@ -1208,7 +1208,7 @@ html,body{overflow-x:hidden; overflow-x:clip}
   #anatomy .an-stage{overflow:visible!important}
   /* centred when it fits, top-aligned when it does not ("safe" centring) - never rises into the heading */
   #anatomy .an-copy{top:0!important; bottom:0!important; transform:none!important; display:flex!important; flex-direction:column; justify-content:center; justify-content:safe center; align-items:flex-start}
-  #anatomy .an-track{display:block; position:relative; height:calc(min(62vh,520px) + 160vh)}
+  #anatomy .an-track{display:block; position:relative; height:calc(min(62vh,520px) + 110vh)}
   #anatomy .an-pin{display:block; position:sticky; top:80px}
 }
 
@@ -1340,6 +1340,17 @@ html,body{overflow-x:hidden; overflow-x:clip}
   #motion .mv-thumb{width:92px}
   #motion .mv-thumb img{width:92px; height:120px; border-radius:10px}
 }
+
+/* Design-system pass 2 */
+/* headings in sentence case (avoid ALL CAPS); small labels, buttons and nav keep their tracked capitals */
+h1,h2,h3,#cta h2 .ch,.cs-head h3,.ix-side h3,.shop-head h3,.cc-meta h3,.svc-body h3,#collections .cs-head h2{text-transform:none!important}
+/* one section-heading (H2) size on desktop; carousel titles stay the H3 tier */
+@media(min-width:901px){ section h2,.sec-head h2,#story h2,#cta h2,#why h2,#faq h2,#testimonials h2,.mo-copy h2,.jr-head h2,.k-banner h2,#motion h2{font-size:clamp(40px,4.2vw,72px)!important; line-height:1.02!important} }
+@media(min-width:901px) and (min-height:781px){ #anatomy h2{font-size:clamp(40px,4.2vw,72px)!important; line-height:1.02!important} }
+/* text links get a 44px tap area without changing how they look (Fitts) */
+.cs-all,.hr-link{position:relative}
+.cs-all::after,.hr-link::after{content:''; position:absolute; left:-8px; right:-8px; top:-12px; bottom:-12px}
+.sec-eb{margin-bottom:18px}
 
 /* Featured Collections uses the product-carousel cards; its heading is an h2 styled like the carousel headings */
 #collections .cs-head h2{margin:0; font-size:clamp(28px,2.8vw,44px)!important; font-weight:400!important; line-height:1.08!important; text-transform:uppercase; letter-spacing:0}
@@ -1503,10 +1514,6 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
       <p class="lead" id="heroLead">Temple miniatures and divine collectibles — sacred forms reimagined with precision 3D craft, for modern collectors.</p>
       <div class="cta" id="heroCta">
         <a class="btn solid" href="#collections">Explore Collection</a>
-        <a class="btn gold" href="https://youtube.com/@yugaveeraog" target="_blank" rel="noopener">
-          <svg width="10" height="12" viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7z"/></svg>
-          Watch Story
-        </a>
       </div>
     </div>
     <div class="hero-mid"><model-viewer id="heroMV2" class="hero-mv2" camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none" auto-rotate auto-rotate-delay="0" rotation-per-second="22deg" exposure="1.05" tone-mapping="commerce" environment-image="neutral" shadow-intensity="0.8" shadow-softness="1" camera-orbit="25deg 78deg 108%" alt="3D temple tower — drag to rotate"></model-viewer></div>
@@ -1555,12 +1562,31 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
 </section>
 
+<!-- NEW LAUNCH: newest product from yugaveera.com (updates itself when a newer one is published) -->
+<section id="new-launch">
+  <div class="wrap">
+    <div class="k-banner">
+      <div class="k-copy" data-reveal>
+        <div class="eyebrow">New launch</div>
+        <h2 id="nlTitle">Meditative<br>Shiva.</h2>
+        <p class="lead" id="nlDesc">A fully magnetic sculpture: Shiva, the red ring, the serpent and the base each click into place on their own. Black, red and gold, designed and made in India.</p>
+        <a class="btn solid" id="nlLink" href="https://yugaveera.com/products/shiva-meditative-shiva-figurine-yugaveera" target="_blank" rel="noopener">View the piece</a>
+      </div>
+      <div class="k-img" data-reveal data-clip>
+        <img id="nlImg" src="https://cdn.shopify.com/s/files/1/0669/1507/4136/files/IMG-3543.webp?v=1791457295&width=900" alt="Meditative Shiva figurine seated inside a red ring with a serpent, on a gold base" loading="lazy">
+      </div>
+    </div>
+  </div>
+  <script type="application/json" id="nlData">{"handle":"shiva-meditative-shiva-figurine-yugaveera","created":"2026-10-08"}</script>
+</section>
+
 <!-- 03 FEATURED COLLECTIONS: same card carousel as Featured Products (heading + a full row fit one screen) -->
 <section id="collections">
   <div class="wrap">
+    <div class="eyebrow sec-eb" data-reveal>Shop by collection</div>
     <div class="cs">
       <div class="cs-head">
-        <h2 data-reveal>Featured Collections</h2>
+        <h2 data-reveal>Featured collections</h2>
         <div class="cs-tools"><a class="cs-all" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener">View all &rarr;</a><button type="button" class="cs-btn" aria-label="Previous">&larr;</button><button type="button" class="cs-btn" aria-label="Next">&rarr;</button></div>
       </div>
       <div class="cs-list">
@@ -1582,9 +1608,10 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
 <!-- 06 BEST SELLERS -->
 <section id="bestsellers">
   <div class="wrap">
+    <div class="eyebrow sec-eb" data-reveal>Most loved</div>
     <div class="ix">
 <div class="ix-col" data-reveal>
-  <div class="ix-side"><h3>Featured Products</h3><a class="ix-all" href="https://yugaveera.com/collections/featured-3d-prints" target="_blank" rel="noopener">View all &rarr;</a></div>
+  <div class="ix-side"><h3>Featured products</h3><a class="ix-all" href="https://yugaveera.com/collections/featured-3d-prints" target="_blank" rel="noopener">View all &rarr;</a></div>
   <div class="ix-list"><a class="ix-item" style="--im:url(&quot;https://yugaveera.com/cdn/shop/files/E36EDA68-D263-4EA8-99F8-033B33C685FA.jpg?v=1790422181&width=1000&quot;)" href="https://yugaveera.com/products/venkatachalapathy-6-multicolor-figurine" target="_blank" rel="noopener" data-img="https://yugaveera.com/cdn/shop/files/E36EDA68-D263-4EA8-99F8-033B33C685FA.jpg?v=1790422181&width=1000"><span class="ix-n">01</span><span class="ix-t">Venkatachalapathy – 6" Multicolor Figurine</span><img class="ix-th" src="https://yugaveera.com/cdn/shop/files/E36EDA68-D263-4EA8-99F8-033B33C685FA.jpg?v=1790422181&width=1000" alt="" loading="lazy"><span class="ix-go">&rarr;</span></a>
 <a class="ix-item" style="--im:url(&quot;https://yugaveera.com/cdn/shop/files/IMG-1441.jpg?v=1788435074&width=1000&quot;)" href="https://yugaveera.com/products/muneeswaran-3-5-inch-magnetic-dashboard-edition" target="_blank" rel="noopener" data-img="https://yugaveera.com/cdn/shop/files/IMG-1441.jpg?v=1788435074&width=1000"><span class="ix-n">02</span><span class="ix-t">Muneeswaran – 3.5 Inch Magnetic Dashboard Edition</span><img class="ix-th" src="https://yugaveera.com/cdn/shop/files/IMG-1441.jpg?v=1788435074&width=1000" alt="" loading="lazy"><span class="ix-go">&rarr;</span></a>
 <a class="ix-item" style="--im:url(&quot;https://yugaveera.com/cdn/shop/files/FullSizeRender_96c9f7bd-417f-4fa1-baaf-37a6513ddd5b.jpg?v=1782127292&width=1000&quot;)" href="https://yugaveera.com/products/karuppasamy-dashboard-figurine-3-5-inch-height" target="_blank" rel="noopener" data-img="https://yugaveera.com/cdn/shop/files/FullSizeRender_96c9f7bd-417f-4fa1-baaf-37a6513ddd5b.jpg?v=1782127292&width=1000"><span class="ix-n">03</span><span class="ix-t">Karuppasamy Dashboard Figurine (3.5 inch height)</span><img class="ix-th" src="https://yugaveera.com/cdn/shop/files/FullSizeRender_96c9f7bd-417f-4fa1-baaf-37a6513ddd5b.jpg?v=1782127292&width=1000" alt="" loading="lazy"><span class="ix-go">&rarr;</span></a>
@@ -1635,16 +1662,17 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   <div class="wrap">
     <div class="grid">
       <div>
+        <div class="eyebrow" data-reveal>The process</div>
         <h2 data-reveal>Six acts of<br>craftsmanship.</h2>
         <p class="lead" style="margin-top:28px" data-reveal>Every figurine passes through six deliberate stages before it earns the Yugaveera mark. Nothing ships until it feels worthy of the deity it honours.</p>
       </div>
       <div class="tline" id="tline">
         <i class="prog"></i>
         <div class="t-step" data-reveal><small>Act I</small><h3>Concept</h3><p>Research into iconography, temple sculpture, and story — sketched into a modern silhouette.</p></div>
-        <div class="t-step" data-reveal><small>Act II</small><h3>Digital Sculpt</h3><p>High-resolution 3D sculpting refines every curve, ornament, and expression.</p></div>
-        <div class="t-step" data-reveal><small>Act III</small><h3>3D Printing</h3><p>Precision printing at fine layer heights captures detail traditional moulds cannot.</p></div>
+        <div class="t-step" data-reveal><small>Act II</small><h3>Digital sculpt</h3><p>High-resolution 3D sculpting refines every curve, ornament, and expression.</p></div>
+        <div class="t-step" data-reveal><small>Act III</small><h3>3D printing</h3><p>Precision printing at fine layer heights captures detail traditional moulds cannot.</p></div>
         <div class="t-step" data-reveal><small>Act IV</small><h3>Finishing</h3><p>No paint, no brush — every colour and gold accent comes straight from the print, so the detail stays exactly as designed.</p></div>
-        <div class="t-step" data-reveal><small>Act V</small><h3>Quality Check</h3><p>Each piece is inspected against the master — flaws never leave the studio.</p></div>
+        <div class="t-step" data-reveal><small>Act V</small><h3>Quality check</h3><p>Each piece is inspected against the master — flaws never leave the studio.</p></div>
         <div class="t-step" data-reveal><small>Act VI</small><h3>Packaging</h3><p>Sealed into protective, gift-ready packaging designed for the moment of unboxing.</p></div>
       </div>
     </div>
@@ -1688,22 +1716,40 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
 </section>
 
-<!-- NEW LAUNCH: newest product from yugaveera.com (updates itself when a newer one is published) -->
-<section id="new-launch">
+<!-- 05 CRAFTSMANSHIP -->
+<section id="journal">
   <div class="wrap">
-    <div class="k-banner">
-      <div class="k-copy" data-reveal>
-        <div class="eyebrow">New launch</div>
-        <h2 id="nlTitle">Meditative<br>Shiva.</h2>
-        <p class="lead" id="nlDesc">A fully magnetic sculpture: Shiva, the red ring, the serpent and the base each click into place on their own. Black, red and gold, designed and made in India.</p>
-        <a class="btn solid" id="nlLink" href="https://yugaveera.com/products/shiva-meditative-shiva-figurine-yugaveera" target="_blank" rel="noopener">View the piece</a>
+    <div class="jr-head">
+      <span class="jr-pill" data-reveal>Journal</span>
+      <h2 data-reveal>Crafted with care,<br><em>piece by piece.</em></h2>
+    </div>
+    <a class="jr-feature" href="https://yugaveera.com/products/gopuram-manjal-kumkum-holder-with-magnetic-vel" target="_blank" rel="noopener" data-reveal>
+      <div class="jr-fimg"><img src="story-featured.jpg" alt="Gopuram Manjal–Kumkum Holder with its golden Vel, on a light backdrop" loading="lazy"></div>
+      <div class="jr-fcopy">
+        <span class="jr-tag">Temple Miniatures</span>
+        <h3>The Gopuram Manjal–Kumkum Holder, with a Vel that clicks into place.</h3>
+        <p>A finely detailed gopuram miniature made to hold manjal and kumkum within its form — with a golden Vel that is drawn magnetically to the tower and settles into place on its own.</p>
+        <div class="jr-foot"><i>by Yugaveera</i></div>
       </div>
-      <div class="k-img" data-reveal data-clip>
-        <img id="nlImg" src="https://cdn.shopify.com/s/files/1/0669/1507/4136/files/IMG-3543.webp?v=1791457295&width=900" alt="Meditative Shiva figurine seated inside a red ring with a serpent, on a gold base" loading="lazy">
-      </div>
+    </a>
+    <div class="jr-grid">
+      <a class="jr-card" href="https://yugaveera.com/products/gopuram-manjal-kumkum-holder-with-magnetic-vel" target="_blank" rel="noopener" data-reveal>
+        <div class="jr-cimg"><span class="jr-tag">Ritual</span><img src="story-vel-placing.jpg" alt="Placing the magnetic Vel onto the gopuram holder" loading="lazy"></div>
+        <h4>The Vel that settles into place</h4>
+        <p>A hidden magnet draws the Vel to the gopuram and lets it rest there, naturally and securely.</p>
+      </a>
+      <a class="jr-card" href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener" data-reveal>
+        <div class="jr-cimg"><span class="jr-tag">Detail</span><img src="story-vel-hand.jpg" alt="A golden Vel held between two fingers" loading="lazy"></div>
+        <h4>A Vel small enough to hold</h4>
+        <p>Finished in gold with a red kumkum dot — a small piece that completes the larger one.</p>
+      </a>
+      <a class="jr-card" href="https://yugaveera.com/products/gopuram-manjal-kumkum-holder-with-magnetic-vel" target="_blank" rel="noopener" data-reveal>
+        <div class="jr-cimg"><span class="jr-tag">In use</span><video class="jr-video" src="journal-ritual.mp4" poster="journal-ritual.jpg" muted loop playsinline preload="none" aria-label="Filling the gold manjal and kumkum cups, closing the gopuram and placing the Vel"></video></div>
+        <h4>Manjal, kumkum, then the Vel</h4>
+        <p>Two gold cups inside the base hold manjal and kumkum; the tower closes over them and the Vel settles in last.</p>
+      </a>
     </div>
   </div>
-  <script type="application/json" id="nlData">{"handle":"shiva-meditative-shiva-figurine-yugaveera","created":"2026-10-08"}</script>
 </section>
 
 <!-- 04 WHY YUGAVEERA -->
@@ -1732,11 +1778,34 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
 </section>
 
+<!-- 09a IN MOTION: cover image; tap a thumbnail to play its video (muted) in the big frame -->
+<section id="motion">
+  <div class="wrap">
+    <div class="mv-grid">
+      <div class="mv-copy">
+        <div class="eyebrow" data-reveal>In motion</div>
+        <span class="mv-tag" id="mvTag">Watch the collection</span>
+        <h2 id="mvTitle">See them move.</h2>
+        <p id="mvDesc">Tap any piece below to watch it play.</p>
+        <a class="hr-link" id="mvLink" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener">Shop the collection <span>&rarr;</span></a>
+      </div>
+      <div class="mv-stage">
+        <img class="mv-cover" src="motion/mayil-vahanan.jpg" alt="Mayil Vahanan, Murugan on his peacock" loading="lazy">
+        <video class="mv-video" muted playsinline loop preload="none" aria-label="Product video"></video>
+        <button type="button" class="mv-play" aria-label="Play Mayil Vahanan"><i></i></button>
+      </div>
+    </div>
+    <div class="mv-strip" aria-label="Choose a piece to watch"><button type="button" class="mv-thumb" data-i="0"><img src="motion/amman-t.jpg" alt="Play Amman" loading="lazy" width="110" height="147"><span>Amman</span></button><button type="button" class="mv-thumb" data-i="1"><img src="motion/shiva-hand-t.jpg" alt="Play Shiva’s Hand" loading="lazy" width="110" height="147"><span>Shiva’s Hand</span></button><button type="button" class="mv-thumb" data-i="2"><img src="motion/namashivaya-t.jpg" alt="Play Namashivaya" loading="lazy" width="110" height="147"><span>Namashivaya</span></button><button type="button" class="mv-thumb" data-i="3"><img src="motion/ayyappa-t.jpg" alt="Play Ayyappa" loading="lazy" width="110" height="147"><span>Ayyappa</span></button><button type="button" class="mv-thumb" data-i="4"><img src="motion/meditating-murugan-t.jpg" alt="Play Murugan" loading="lazy" width="110" height="147"><span>Murugan</span></button><button type="button" class="mv-thumb" data-i="5"><img src="motion/mayil-vahanan-t.jpg" alt="Play Mayil Vahanan" loading="lazy" width="110" height="147"><span>Mayil Vahanan</span></button><button type="button" class="mv-thumb" data-i="6"><img src="motion/king-kandhan-t.jpg" alt="Play King Kandhan" loading="lazy" width="110" height="147"><span>King Kandhan</span></button><button type="button" class="mv-thumb" data-i="7"><img src="motion/muneeswaran-t.jpg" alt="Play Muneeswaran" loading="lazy" width="110" height="147"><span>Muneeswaran</span></button><button type="button" class="mv-thumb" data-i="0" aria-hidden="true" tabindex="-1"><img src="motion/amman-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Amman</span></button><button type="button" class="mv-thumb" data-i="1" aria-hidden="true" tabindex="-1"><img src="motion/shiva-hand-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Shiva’s Hand</span></button><button type="button" class="mv-thumb" data-i="2" aria-hidden="true" tabindex="-1"><img src="motion/namashivaya-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Namashivaya</span></button><button type="button" class="mv-thumb" data-i="3" aria-hidden="true" tabindex="-1"><img src="motion/ayyappa-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Ayyappa</span></button><button type="button" class="mv-thumb" data-i="4" aria-hidden="true" tabindex="-1"><img src="motion/meditating-murugan-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Murugan</span></button><button type="button" class="mv-thumb" data-i="5" aria-hidden="true" tabindex="-1"><img src="motion/mayil-vahanan-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Mayil Vahanan</span></button><button type="button" class="mv-thumb" data-i="6" aria-hidden="true" tabindex="-1"><img src="motion/king-kandhan-t.jpg" alt="" loading="lazy" width="110" height="147"><span>King Kandhan</span></button><button type="button" class="mv-thumb" data-i="7" aria-hidden="true" tabindex="-1"><img src="motion/muneeswaran-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Muneeswaran</span></button></div>
+  </div>
+  <script type="application/json" id="mvData">[{"s":"amman","tag":"Ritual","t":"Manjal and kumkum, every morning.","d":"The Amman holder keeps both at the heart of the pooja shelf.","u":"https://yugaveera.com/products/amman-sacred-manjal-kumkum-holder"},{"s":"shiva-hand","tag":"Ritual","t":"Vibuthi, held in His hand.","d":"Shiva’s Hand cradles a small bowl of sacred ash, always within reach.","u":"https://yugaveera.com/products/shiva-s-hand-vibuthi-holder-%F0%9F%94%B1"},{"s":"namashivaya","tag":"On the road","t":"Namashivaya, on every drive.","d":"The Shiva tilak car hang, from its box to the mirror in seconds.","u":"https://yugaveera.com/products/namashivaya-shiva-tilak-car-hang"},{"s":"ayyappa","tag":"On the road","t":"Swami Ayyappa rides along.","d":"A 3.5-inch dashboard figurine that clicks on, and lifts off when you park.","u":"https://yugaveera.com/products/ayyappa-3-5-quick-remove-car-dashboard-figurine-yugaveera"},{"s":"meditating-murugan","tag":"On the road","t":"Calm in traffic.","d":"Meditating Murugan, the dashboard edition.","u":"https://yugaveera.com/products/meditating-murugan-dashboard-edition"},{"s":"mayil-vahanan","tag":"Collector","t":"Mayil Vahanan.","d":"Murugan on his peacock, wings spread wide.","u":"https://yugaveera.com/products/mayil-vahanan"},{"s":"king-kandhan","tag":"Collector","t":"The throne edition.","d":"King Kandhan, seated in gold-trimmed detail.","u":"https://yugaveera.com/products/king-kandhan-throne-edition"},{"s":"muneeswaran","tag":"On the road","t":"A guardian on the dash.","d":"Muneeswaran, the 3.5-inch magnetic dashboard edition.","u":"https://yugaveera.com/products/muneeswaran-3-5-inch-magnetic-dashboard-edition"}]</script>
+</section>
+
 <!-- 08 TESTIMONIALS -->
 <section id="testimonials">
   <div class="wrap">
     <div class="sec-head">
       <div>
+        <div class="eyebrow" data-reveal>Customer reviews</div>
         <h2 data-reveal>Voices of the tribe</h2>
       </div>
     </div>
@@ -1893,72 +1962,16 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   <div class="wrap">
     <div class="sec-head">
       <div>
+        <div class="eyebrow" data-reveal>Our promise</div>
         <h2 data-reveal>Why Yugaveera</h2>
       </div>
     </div>
     <div class="svc-list">
-      <div class="svc" data-reveal><div class="svc-body"><h3>Museum Quality</h3><p>Sculpted to exhibition standards — crisp detail, balanced proportions, hand-finished surfaces.</p></div></div>
+      <div class="svc" data-reveal><div class="svc-body"><h3>Collector quality</h3><p>Crisp detail and balanced proportions — every piece is checked against the master before it ships.</p></div></div>
       <div class="svc" data-reveal><div class="svc-body"><h3>Made in India</h3><p>Designed, printed, and finished in India — heritage told by the hands closest to it.</p></div></div>
-      <div class="svc" data-reveal><div class="svc-body"><h3>Collector Editions</h3><p>Small batches and numbered runs. When an edition is gone, it is gone.</p></div></div>
-      <div class="svc" data-reveal><div class="svc-body"><h3>Premium Packaging</h3><p>Unboxing designed as ritual — protective, elegant, ready for gifting.</p></div></div>
+      <div class="svc" data-reveal><div class="svc-body"><h3>Limited editions</h3><p>Made in small batches and limited runs. When an edition sells out, it is gone.</p></div></div>
+      <div class="svc" data-reveal><div class="svc-body"><h3>Premium packaging</h3><p>Unboxing designed as ritual — protective, elegant, ready for gifting.</p></div></div>
     </div>
-  </div>
-</section>
-
-<!-- 05 CRAFTSMANSHIP -->
-<section id="journal">
-  <div class="wrap">
-    <div class="jr-head">
-      <span class="jr-pill" data-reveal>Journal</span>
-      <h2 data-reveal>Crafted with care,<br><em>piece by piece.</em></h2>
-    </div>
-    <a class="jr-feature" href="https://yugaveera.com/products/gopuram-manjal-kumkum-holder-with-magnetic-vel" target="_blank" rel="noopener" data-reveal>
-      <div class="jr-fimg"><img src="story-featured.jpg" alt="Gopuram Manjal–Kumkum Holder with its golden Vel, on a light backdrop" loading="lazy"></div>
-      <div class="jr-fcopy">
-        <span class="jr-tag">Temple Miniatures</span>
-        <h3>The Gopuram Manjal–Kumkum Holder, with a Vel that clicks into place.</h3>
-        <p>A finely detailed gopuram miniature made to hold manjal and kumkum within its form — with a golden Vel that is drawn magnetically to the tower and settles into place on its own.</p>
-        <div class="jr-foot"><i>by Yugaveera</i></div>
-      </div>
-    </a>
-    <div class="jr-grid">
-      <a class="jr-card" href="https://yugaveera.com/products/gopuram-manjal-kumkum-holder-with-magnetic-vel" target="_blank" rel="noopener" data-reveal>
-        <div class="jr-cimg"><span class="jr-tag">Ritual</span><img src="story-vel-placing.jpg" alt="Placing the magnetic Vel onto the gopuram holder" loading="lazy"></div>
-        <h4>The Vel that settles into place</h4>
-        <p>A hidden magnet draws the Vel to the gopuram and lets it rest there, naturally and securely.</p>
-      </a>
-      <a class="jr-card" href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener" data-reveal>
-        <div class="jr-cimg"><span class="jr-tag">Detail</span><img src="story-vel-hand.jpg" alt="A golden Vel held between two fingers" loading="lazy"></div>
-        <h4>A Vel small enough to hold</h4>
-        <p>Finished in gold with a red kumkum dot — a small piece that completes the larger one.</p>
-      </a>
-      <a class="jr-card" href="https://yugaveera.com/products/gopuram-manjal-kumkum-holder-with-magnetic-vel" target="_blank" rel="noopener" data-reveal>
-        <div class="jr-cimg"><span class="jr-tag">In use</span><video class="jr-video" src="journal-ritual.mp4" poster="journal-ritual.jpg" muted loop playsinline preload="none" aria-label="Filling the gold manjal and kumkum cups, closing the gopuram and placing the Vel"></video></div>
-        <h4>Manjal, kumkum, then the Vel</h4>
-        <p>Two gold cups inside the base hold manjal and kumkum; the tower closes over them and the Vel settles in last.</p>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- 02b REAL MOMENTS -->
-<section id="about">
-  <div class="wrap">
-    <div class="ab-grid">
-      <div class="ab-intro">
-        <span class="jr-pill" data-reveal>About Yugaveera</span>
-        <h2 data-reveal>Yugaveera, <em>in brief.</em></h2>
-        <p data-reveal>Yugaveera creates premium 3D-printed collectibles inspired by India's gods and legends — sacred forms reimagined as modern icons, bridging tradition and contemporary design.</p>
-        <a class="btn solid" href="https://yugaveera.com" target="_blank" rel="noopener" data-reveal>Visit yugaveera.com <span>&rarr;</span></a>
-      </div>
-      <div class="ab-cards">
-        <div class="ab-card" data-reveal><h3>What we make</h3><p>Figurines, car hangs, dashboard pieces, temple miniatures, calendars, keychains and ritual add-ons — across 8 collections and 50+ divine designs.</p></div>
-        <div class="ab-card" data-reveal><h3>How it's made</h3><p>AI-assisted design meets high-precision 3D printing. Each piece is finished with care, and fine layer lines are a natural part of the process.</p></div>
-        <div class="ab-card" data-reveal><h3>Made for moments</h3><p>Housewarmings, weddings, new cars, birthdays — and any space that needs a sense of strength, protection and quiet energy.</p></div>
-        <div class="ab-card" data-reveal><h3>How to order</h3><p>Shop online with pan-India shipping and gift-ready packaging. Buy 2 pieces and get the 3rd at 40% off. For bulk orders call +91 93805 15663.</p></div>
-      </div>
-    </div>
-    <div class="ab-cats" data-reveal><span>Shop by collection</span><div class="ab-cats-list"><a href="https://yugaveera.com/collections/action-figurines" target="_blank" rel="noopener">Action Figurines</a><a href="https://yugaveera.com/collections/car-hangs" target="_blank" rel="noopener">Car Hangs</a><a href="https://yugaveera.com/collections/dashboard" target="_blank" rel="noopener">Dashboard</a><a href="https://yugaveera.com/collections/temple-miniatures" target="_blank" rel="noopener">Temple Miniatures</a><a href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener">Limited Editions</a><a href="https://yugaveera.com/collections/calendars" target="_blank" rel="noopener">Calendars</a><a href="https://yugaveera.com/collections/key-chains" target="_blank" rel="noopener">Keychains</a><a href="https://yugaveera.com/collections/add-ons" target="_blank" rel="noopener">Add-ons</a></div></div>
   </div>
 </section>
 
@@ -1979,6 +1992,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
 <!-- 09 FAQ -->
 <section id="faq">
   <div class="wrap">
+    <div class="eyebrow" data-reveal>Questions</div>
     <h2 data-reveal style="margin-bottom:50px">Before you collect</h2>
     <div class="acc" data-reveal>
       <button>What are the figurines made of?<span class="ic"></span></button>
@@ -2001,28 +2015,6 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
       <div class="a"><p>Keep it away from prolonged direct sunlight and wipe gently with a dry, soft cloth. Dashboard pieces use secure mounting that won't damage your car's interior.</p></div>
     </div>
   </div>
-</section>
-
-<!-- 09a IN MOTION: cover image; tap a thumbnail to play its video (muted) in the big frame -->
-<section id="motion">
-  <div class="wrap">
-    <div class="mv-grid">
-      <div class="mv-copy">
-        <div class="eyebrow" data-reveal>In motion</div>
-        <span class="mv-tag" id="mvTag">Watch the collection</span>
-        <h2 id="mvTitle">See them move.</h2>
-        <p id="mvDesc">Tap any piece below to watch it play.</p>
-        <a class="hr-link" id="mvLink" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener">Shop the collection <span>&rarr;</span></a>
-      </div>
-      <div class="mv-stage">
-        <img class="mv-cover" src="motion/mayil-vahanan.jpg" alt="Mayil Vahanan, Murugan on his peacock" loading="lazy">
-        <video class="mv-video" muted playsinline loop preload="none" aria-label="Product video"></video>
-        <button type="button" class="mv-play" aria-label="Play Mayil Vahanan"><i></i></button>
-      </div>
-    </div>
-    <div class="mv-strip" aria-label="Choose a piece to watch"><button type="button" class="mv-thumb" data-i="0"><img src="motion/amman-t.jpg" alt="Play Amman" loading="lazy" width="110" height="147"><span>Amman</span></button><button type="button" class="mv-thumb" data-i="1"><img src="motion/shiva-hand-t.jpg" alt="Play Shiva’s Hand" loading="lazy" width="110" height="147"><span>Shiva’s Hand</span></button><button type="button" class="mv-thumb" data-i="2"><img src="motion/namashivaya-t.jpg" alt="Play Namashivaya" loading="lazy" width="110" height="147"><span>Namashivaya</span></button><button type="button" class="mv-thumb" data-i="3"><img src="motion/ayyappa-t.jpg" alt="Play Ayyappa" loading="lazy" width="110" height="147"><span>Ayyappa</span></button><button type="button" class="mv-thumb" data-i="4"><img src="motion/meditating-murugan-t.jpg" alt="Play Murugan" loading="lazy" width="110" height="147"><span>Murugan</span></button><button type="button" class="mv-thumb" data-i="5"><img src="motion/mayil-vahanan-t.jpg" alt="Play Mayil Vahanan" loading="lazy" width="110" height="147"><span>Mayil Vahanan</span></button><button type="button" class="mv-thumb" data-i="6"><img src="motion/king-kandhan-t.jpg" alt="Play King Kandhan" loading="lazy" width="110" height="147"><span>King Kandhan</span></button><button type="button" class="mv-thumb" data-i="7"><img src="motion/muneeswaran-t.jpg" alt="Play Muneeswaran" loading="lazy" width="110" height="147"><span>Muneeswaran</span></button><button type="button" class="mv-thumb" data-i="0" aria-hidden="true" tabindex="-1"><img src="motion/amman-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Amman</span></button><button type="button" class="mv-thumb" data-i="1" aria-hidden="true" tabindex="-1"><img src="motion/shiva-hand-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Shiva’s Hand</span></button><button type="button" class="mv-thumb" data-i="2" aria-hidden="true" tabindex="-1"><img src="motion/namashivaya-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Namashivaya</span></button><button type="button" class="mv-thumb" data-i="3" aria-hidden="true" tabindex="-1"><img src="motion/ayyappa-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Ayyappa</span></button><button type="button" class="mv-thumb" data-i="4" aria-hidden="true" tabindex="-1"><img src="motion/meditating-murugan-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Murugan</span></button><button type="button" class="mv-thumb" data-i="5" aria-hidden="true" tabindex="-1"><img src="motion/mayil-vahanan-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Mayil Vahanan</span></button><button type="button" class="mv-thumb" data-i="6" aria-hidden="true" tabindex="-1"><img src="motion/king-kandhan-t.jpg" alt="" loading="lazy" width="110" height="147"><span>King Kandhan</span></button><button type="button" class="mv-thumb" data-i="7" aria-hidden="true" tabindex="-1"><img src="motion/muneeswaran-t.jpg" alt="" loading="lazy" width="110" height="147"><span>Muneeswaran</span></button></div>
-  </div>
-  <script type="application/json" id="mvData">[{"s":"amman","tag":"Ritual","t":"Manjal and kumkum, every morning.","d":"The Amman holder keeps both at the heart of the pooja shelf.","u":"https://yugaveera.com/products/amman-sacred-manjal-kumkum-holder"},{"s":"shiva-hand","tag":"Ritual","t":"Vibuthi, held in His hand.","d":"Shiva’s Hand cradles a small bowl of sacred ash, always within reach.","u":"https://yugaveera.com/products/shiva-s-hand-vibuthi-holder-%F0%9F%94%B1"},{"s":"namashivaya","tag":"On the road","t":"Namashivaya, on every drive.","d":"The Shiva tilak car hang, from its box to the mirror in seconds.","u":"https://yugaveera.com/products/namashivaya-shiva-tilak-car-hang"},{"s":"ayyappa","tag":"On the road","t":"Swami Ayyappa rides along.","d":"A 3.5-inch dashboard figurine that clicks on, and lifts off when you park.","u":"https://yugaveera.com/products/ayyappa-3-5-quick-remove-car-dashboard-figurine-yugaveera"},{"s":"meditating-murugan","tag":"On the road","t":"Calm in traffic.","d":"Meditating Murugan, the dashboard edition.","u":"https://yugaveera.com/products/meditating-murugan-dashboard-edition"},{"s":"mayil-vahanan","tag":"Collector","t":"Mayil Vahanan.","d":"Murugan on his peacock, wings spread wide.","u":"https://yugaveera.com/products/mayil-vahanan"},{"s":"king-kandhan","tag":"Collector","t":"The throne edition.","d":"King Kandhan, seated in gold-trimmed detail.","u":"https://yugaveera.com/products/king-kandhan-throne-edition"},{"s":"muneeswaran","tag":"On the road","t":"A guardian on the dash.","d":"Muneeswaran, the 3.5-inch magnetic dashboard edition.","u":"https://yugaveera.com/products/muneeswaran-3-5-inch-magnetic-dashboard-edition"}]</script>
 </section>
 
 <!-- 09b CONNECT -->
@@ -2054,7 +2046,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
 <section id="cta">
   <div class="wrap">
     <div class="eyebrow" data-reveal style="justify-content:center">The Collection Awaits</div>
-    <h2 data-reveal>Own a piece<br>of the <em>myth</em>.</h2>
+    <h2 data-reveal>Bring the<br><em>divine</em> home.</h2>
     <p class="lead" data-reveal>From temple gopurams to flying guardians — every piece is devotion, precision-crafted in India. Yours begins here.</p>
     <div class="cta-btns" data-reveal>
       <a class="btn solid" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener">Explore Collection</a>
@@ -2101,7 +2093,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 131</span>
+    <span>Crafted with devotion · Made in India · build 132</span>
   </div>
 </footer>
 
@@ -2419,7 +2411,6 @@ const bgMap = [
   ['#collections',  '#e8e8e8'],
   ['#why',          '#ececec'],
   ['#craft',        '#f4f4f4'],
-  ['#about',        '#ececec'],
   ['#testimonials', '#e8e8e8'],
   ['#cta',          '#e6e4df']
 ];
@@ -2593,6 +2584,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   }
   /* Story dock: centre the model in the empty right-hand column, sized to fit it.
      When the grid stacks (<=1060px) there is no empty column, so the model stays a hero-only element. */
+  var allSec=[].slice.call(document.querySelectorAll('section')), stNextId=(allSec[allSec.indexOf(document.getElementById('story'))+1]||{}).id||'collections';   /* by document order: the pinned Story sits inside a pin-spacer */
   var stCol=document.querySelector('#story .grid > div:last-child'), stTxt=stCol&&stCol.previousElementSibling, stFit=1;
   function storyDock(vv, HE){
     var ST={x:.5,y:.02,s:.8,t:-360,p:78,rad:105};
@@ -2622,7 +2614,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
     /* deterministic visibility: only the hero, the story column and the Craft section */
     var vh=innerHeight, cl=function(v){return v<0?0:v>1?1:v}, el=function(i){var e=document.getElementById(i); return e?e.getBoundingClientRect().top:1e9};
-    var a1=stFit?cl((el('collections')-vh*.72)/(vh*.28)):cl((el('marquee')-vh*.55)/(vh*.3)), a2=innerWidth<900?0:crFit*cl((vh*.42-el('craft'))/(vh*.3))*(1-cl((vh*.98-el('anatomy'))/(vh*.28)));
+    var a1=stFit?cl((el(stNextId)-vh*.72)/(vh*.28)):cl((el('marquee')-vh*.55)/(vh*.3)), a2=innerWidth<900?0:crFit*cl((vh*.42-el('craft'))/(vh*.3))*(1-cl((vh*.98-el('anatomy'))/(vh*.28)));
     var al=Math.max(a1,a2); if(al!==lastAl){ lastAl=al; pos.style.opacity=al.toFixed(3); pos.style.visibility=al<.01?'hidden':'visible'; }
     var px=(J.x*innerWidth*.5).toFixed(1), py=(J.y*innerHeight*.5+Math.sin(tt*.9)*8*hf).toFixed(1), ps=J.s.toFixed(3);
     var pk=px+','+py+','+ps;
@@ -2993,7 +2985,7 @@ var data=[].slice.call(ix.querySelectorAll('.ix-col')).map(function(c){return{ti
 if(!data.length)return;
 function E(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function pd(n){return n<10?'0'+n:''+n}
-var last=ix,cards=[],prevSec=null,plan={0:'main',1:'main',2:['anatomy','Small batches'],3:['moments','Made for the road'],4:'prev',5:['offer','Everyday carry','before']};
+var last=ix,cards=[],prevSec=null,plan={0:'main',1:'main',2:['offer','More to collect','before'],3:['moments','Made for the road'],4:'prev',5:'into:shop-2'};
 data.forEach(function(d,k){
  var cs=E('div','cs'),hd=E('div','cs-head'),h3=E('h3');h3.appendChild(document.createTextNode(d.title));
  var tl=E('div','cs-tools'),all=E('a','cs-all','View all \u2192');all.href=d.all;all.target='_blank';all.rel='noopener';
@@ -3015,6 +3007,7 @@ data.forEach(function(d,k){
  var p=plan[k];
  if(p==='main'){ix.parentNode.insertBefore(cs,last.nextSibling);last=cs}
  else if(p==='prev'){prevSec.querySelector('.wrap').appendChild(cs)}
+ else if(typeof p==='string'&&p.indexOf('into:')===0){var tg=document.getElementById(p.slice(5));(tg?tg.querySelector('.wrap'):ix.parentNode).appendChild(cs)}
  else{var sc=E('section','shop-split'),wr=E('div','wrap');sc.id='shop-'+k;wr.appendChild(E('div','eyebrow',p[1]));wr.appendChild(cs);sc.appendChild(wr);
   var an=document.getElementById(p[0]);if(an){if(p[2]==='before')an.parentNode.insertBefore(sc,an);else an.parentNode.insertBefore(sc,an.nextSibling)}else ix.parentNode.parentNode.appendChild(sc);prevSec=sc}});
 ix.style.display='none';
