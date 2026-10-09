@@ -1279,6 +1279,24 @@ html,body{overflow-x:hidden; overflow-x:clip}
   #anatomy .an-copy li{padding-top:1px!important; padding-bottom:1px!important}
 }
 
+/* Anatomy part labels: name + gold leader line + dot, shown only while the parts are apart */
+.an-labels{position:absolute; inset:0; pointer-events:none; z-index:2}
+.an-lab{position:absolute; left:0; top:0; display:flex; align-items:center; gap:10px; white-space:nowrap; opacity:0; transition:opacity .35s; will-change:transform,opacity}
+.an-lab b{font:600 12.5px/1 'Cormorant Garamond',serif; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-text)}
+.an-lab i{position:relative; width:46px; height:1px; background:var(--gold)}
+.an-lab i::after{content:''; position:absolute; right:-3px; top:-2.5px; width:6px; height:6px; border-radius:50%; background:var(--gold)}
+.an-lab.flip{flex-direction:row-reverse}
+.an-lab.flip i::after{right:auto; left:-3px}
+.an-lab.up{flex-direction:column; gap:6px}
+.an-lab.up i{width:1px; height:24px}
+.an-lab.up i::after{right:auto; left:-2.5px; top:auto; bottom:-3px}
+.an-lab.down{flex-direction:column-reverse; gap:6px}
+.an-lab.down i{width:1px; height:24px}
+.an-lab.down i::after{right:auto; left:-2.5px; top:-3px}
+.an-lab .ls{display:none}
+@media(max-width:600px){.an-lab .lf{display:none} .an-lab .ls{display:inline} .an-lab.up i,.an-lab.down i{height:16px}}
+@media(max-width:600px){.an-lab b{font-size:11px; letter-spacing:.12em} .an-lab i{width:22px}}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1578,6 +1596,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
       <div class="an-cap">Four parts — crown, cup, Vel, base</div>
       <div class="an-cap">Each with a role. Nothing ornamental.</div>
       <div class="an-cap">The Vel settles in last — magnetically</div>
+      <div class="an-labels" aria-hidden="true"><span class="an-lab" data-k="top"><b><span class="lf">Gopuram tower</span><span class="ls">Tower</span></b><i></i></span><span class="an-lab" data-k="vel"><b><span class="lf">Magnetic Vel</span><span class="ls">Vel</span></b><i></i></span><span class="an-lab" data-k="cup"><b><span class="lf">Manjal &amp; kumkum cups</span><span class="ls">Cups</span></b><i></i></span><span class="an-lab" data-k="base"><b><span class="lf">Temple base</span><span class="ls">Base</span></b><i></i></span></div>
       </div></div>
       <div class="an-copy">
         <h3>Gopuram Manjal–Kumkum Holder</h3>
@@ -1994,7 +2013,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 118</span>
+    <span>Crafted with devotion · Made in India · build 119</span>
   </div>
 </footer>
 
@@ -2741,6 +2760,49 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       cam.lookAt(0, -.05, 0);
 
       stageVisible = true; lastSig = '';
+      /* part labels: anchored to each part's side (cup on its right so its line never crosses the other parts),
+         flipped when there is no room, faded in only once a part is well apart from the rest */
+      const labWrap = stage.querySelector('.an-labels'), labs = {}, lb = new THREE.Box3(), lv = new THREE.Vector3();
+      if (labWrap) labWrap.querySelectorAll('.an-lab').forEach(l => { labs[l.dataset.k] = l; });
+      function placeLabels(){
+        if (!labWrap) return;
+        const cr = canvas.getBoundingClientRect(), wr = labWrap.getBoundingClientRect(), ox = cr.left - wr.left, oy = cr.top - wr.top, W = wr.width, H = wr.height;
+        group.updateMatrixWorld(true);
+        /* each part's on-screen box (8 projected bbox corners) */
+        const R = {};
+        for (const k in parts){ lb.setFromObject(parts[k]); let l = 1e9, t = 1e9, r = -1e9, b = -1e9;
+          for (let i = 0; i < 8; i++){ lv.set(i & 1 ? lb.max.x : lb.min.x, i & 2 ? lb.max.y : lb.min.y, i & 4 ? lb.max.z : lb.min.z).project(cam);
+            const x = ox + (lv.x + 1) / 2 * cr.width, y = oy + (1 - lv.y) / 2 * cr.height; l = Math.min(l, x); r = Math.max(r, x); t = Math.min(t, y); b = Math.max(b, y); }
+          R[k] = { l, t, r, b }; }
+        /* projected AABBs are loose; shrink them a little so labels can sit close to the silhouette */
+        for (const k in R){ const q = R[k], dx = (q.r - q.l) * .12, dy = (q.b - q.t) * .06; R[k] = { l: q.l + dx, r: q.r - dx, t: q.t + dy, b: q.b - dy }; }
+        const hit = (a, b) => a.l < b.r && a.r > b.l && a.t < b.b && a.b > b.t, placed = [];
+        for (const k of ['top', 'vel', 'base', 'cup']){
+          const el = labs[k]; if (!el) continue;
+          const op = Math.max(0, Math.min(1, (A[k] - .72) / .22)); el.style.opacity = op.toFixed(3);
+          if (op <= 0 || !R[k]) continue;
+          el.classList.remove('flip', 'up', 'down');
+          const order = k === 'cup' ? ['up', 'right', 'down', 'left'] : ['left', 'right', 'up', 'down'];
+          let best = null;
+          for (const s of order){
+            if (s === 'up' || s === 'down') el.classList.add(s); else if (s === 'right') el.classList.add('flip');
+            const w = el.offsetWidth, hh = el.offsetHeight, q = R[k], cx = (q.l + q.r) / 2, cy = (q.t + q.b) / 2;
+            el.classList.remove('flip', 'up', 'down');
+            const x = s === 'left' ? q.l - 6 - w : s === 'right' ? q.r + 6 : cx - w / 2;
+            const y = s === 'up' ? q.t - 6 - hh : s === 'down' ? q.b + 6 : cy - hh / 2;
+            const box = { l: x - 4, t: y - 4, r: x + w + 4, b: y + hh + 4 };
+            const inside = box.l >= 0 && box.t >= 0 && box.r <= W && box.b <= H;
+            const clear = inside && !Object.keys(R).some(j => j !== k && hit(box, R[j])) && !placed.some(p => hit(box, p));
+            const c = { s, x, y, box };
+            if (clear){ best = c; break; }
+            if (!best && inside) best = c;
+          }
+          if (!best){ const q = R[k]; best = { s: order[0], x: Math.max(4, Math.min(W - el.offsetWidth - 4, (q.l + q.r) / 2 - el.offsetWidth / 2)), y: Math.max(4, q.t - 6 - el.offsetHeight), box: null }; }
+          if (best.s === 'up' || best.s === 'down') el.classList.add(best.s); else if (best.s === 'right') el.classList.add('flip');
+          el.style.transform = 'translate(' + best.x.toFixed(1) + 'px,' + best.y.toFixed(1) + 'px)';
+          placed.push(best.box || { l: best.x, t: best.y, r: best.x + el.offsetWidth, b: best.y + el.offsetHeight });
+        }
+      }
       try { new IntersectionObserver(es => { stageVisible = es.some(e => e.isIntersecting); }, { rootMargin:'60%' }).observe(stage); } catch(e){}
       renderer.setAnimationLoop(() => {
         if (!stageVisible) return;
@@ -2752,6 +2814,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
           const up = sm(c01(a / .35)), across = sm(c01((a - .35) / .35)), down = sm(c01((a - .7) / .3));
           parts.cup.position.set(ex.cup.x * across, cupLift * up + (ex.cup.y - cupLift) * down, ex.cup.z * across); }
         allMats.forEach(m => { if (m.emissive){ m.emissive.copy(gold); m.emissiveIntensity = G.i; } });
+        placeLabels();
         renderer.shadowMap.needsUpdate = true;
         renderer.render(scene, cam);
       });
