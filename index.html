@@ -1194,6 +1194,17 @@ h1 .accent,h1 .accent i,h2 em,#hero .hr h3 em{color:var(--gold-lg)!important; -w
 /* States — visible keyboard focus on every interactive element */
 a:focus-visible,button:focus-visible{outline:2px solid var(--gold-text); outline-offset:3px; border-radius:6px}
 
+/* Anatomy on phones/tablets: hold the 3D frame on screen (sticky) while the split/join plays,
+   so the animation never runs half off-screen; desktop keeps its ScrollTrigger pin */
+/* overflow-x:clip still stops sideways scroll but, unlike hidden, does not break position:sticky */
+html,body{overflow-x:hidden; overflow-x:clip}
+.an-track,.an-pin{display:contents}
+@media(max-width:899px){
+  #anatomy .an-stage{overflow:visible!important}
+  #anatomy .an-track{display:block; position:relative; height:calc(min(62vh,520px) + 110vh)}
+  #anatomy .an-pin{display:block; position:sticky; top:80px}
+}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1487,11 +1498,13 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
       </div>
     </div>
     <div class="an-stage">
+      <div class="an-track"><div class="an-pin">
       <canvas id="anCanvas"></canvas>
       <div class="an-cap">Inspired by the Tiruchendur Gopuram</div>
       <div class="an-cap">Four parts — crown, cup, Vel, base</div>
       <div class="an-cap">Each with a role. Nothing ornamental.</div>
       <div class="an-cap">The Vel settles in last — magnetically</div>
+      </div></div>
       <div class="an-copy">
         <h3>Gopuram Manjal–Kumkum Holder</h3>
         <p>A finely detailed gopuram miniature designed for sacred spaces — created to hold manjal and kumkum within its form.</p>
@@ -1907,7 +1920,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 108</span>
+    <span>Crafted with devotion · Made in India · build 109</span>
   </div>
 </footer>
 
@@ -2471,6 +2484,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
   }
   /* progress measured LIVE from real on-screen geometry — immune to stale layout */
   const secEl = document.getElementById('anatomy');
+  const anTrack = secEl.querySelector('.an-track'), anPin = secEl.querySelector('.an-pin');
   let pCur = 0;
   gsap.ticker.add(() => {
     const host = (secEl.parentElement && secEl.parentElement.classList.contains('pin-spacer')) ? secEl.parentElement : secEl;
@@ -2479,7 +2493,10 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     if (isDesk) {
       p = (-r.top) / (2.8 * innerHeight);
     } else {
-      p = (innerHeight * .75 - r.top) / (r.height * .9);
+      /* phones: progress = how far we are through the sticky track, so it only plays while the frame is held on screen */
+      const tr = anTrack && anTrack.getBoundingClientRect();
+      if (tr && tr.height > anPin.offsetHeight + 10) p = ((parseFloat(getComputedStyle(anPin).top) || 0) - tr.top) / (tr.height - anPin.offsetHeight) / .85;   /* finish at 85%, then hold the assembled piece */
+      else p = (innerHeight * .75 - r.top) / (r.height * .9);
     }
     p = Math.max(0, Math.min(1, p));
     if (p === pCur && tl.progress() === pCur) return;   /* settled — nothing to re-render */
