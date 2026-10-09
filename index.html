@@ -1466,6 +1466,12 @@ h1,h2,h3,#cta h2 .ch,.cs-head h3,.ix-side h3,.shop-head h3,.cc-meta h3,.svc-body
   .jr-fcopy p{order:4; margin:18px 22px 0} .jr-foot{order:5; margin:16px 22px 24px!important}
 }
 
+/* footer brand note under the logo */
+footer.site .top > div:first-child{flex:1 1 340px; max-width:520px}
+footer.site .f-about{margin-top:22px}
+footer.site .f-about p{font-size:15px; line-height:1.7; color:var(--ink2); margin:0 0 14px; max-width:52ch}
+footer.site .f-about p:last-child{margin-bottom:0; color:var(--ink)}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -2125,7 +2131,14 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   <div class="top">
     <div>
       <div class="logo"><i class="logo-img"></i></div>
-      
+      <div class="f-about">
+        <p>Yugaveera creates premium 3D-printed collectibles inspired by India’s gods and legends.</p>
+        <p>We reinterpret sacred forms as modern-day icons, combining AI-driven design with high-precision 3D printing to create pieces that feel bold, meaningful, and relevant today.</p>
+        <p>These are not just decorative objects.<br>They are designed for real moments — housewarmings, weddings, new cars, birthdays, and personal spaces that need a sense of presence.</p>
+        <p>Each piece carries a sense of strength, protection, and quiet energy.</p>
+        <p>At its core, every Yugaveera creation bridges two worlds — tradition and modern design.</p>
+        <p>You’re not just buying a figurine.<br>You’re bringing in a presence.<br>A symbol.<br>A story, reimagined for today.</p>
+      </div>
     </div>
     <div class="cols">
       <div>
@@ -2157,7 +2170,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 134</span>
+    <span>Crafted with devotion · Made in India · build 135</span>
   </div>
 </footer>
 
