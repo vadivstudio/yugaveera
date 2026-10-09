@@ -1251,6 +1251,10 @@ html,body{overflow-x:hidden; overflow-x:clip}
 }
 .jr-foot{justify-content:flex-start!important}
 
+/* Journal video card: same frame as the photo cards */
+.jr-cimg video{width:100%; height:100%; object-fit:cover; display:block; transition:transform 1s var(--ease)}
+.jr-card:hover .jr-cimg video{transform:scale(1.05)}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1810,11 +1814,6 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
     </a>
     <div class="jr-grid">
       <a class="jr-card" href="https://yugaveera.com/products/gopuram-manjal-kumkum-holder-with-magnetic-vel" target="_blank" rel="noopener" data-reveal>
-        <div class="jr-cimg"><span class="jr-tag">Craft</span><img src="story-carving.jpg" alt="Close-up of the carved tiers of the Gopuram Manjal–Kumkum Holder" loading="lazy"></div>
-        <h4>Every layer line is part of the story</h4>
-        <p>High-precision 3D printing leaves fine layer lines — the quiet signature of how each tier is built.</p>
-      </a>
-      <a class="jr-card" href="https://yugaveera.com/products/gopuram-manjal-kumkum-holder-with-magnetic-vel" target="_blank" rel="noopener" data-reveal>
         <div class="jr-cimg"><span class="jr-tag">Ritual</span><img src="story-vel-placing.jpg" alt="Placing the magnetic Vel onto the gopuram holder" loading="lazy"></div>
         <h4>The Vel that settles into place</h4>
         <p>A hidden magnet draws the Vel to the gopuram and lets it rest there, naturally and securely.</p>
@@ -1823,6 +1822,11 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
         <div class="jr-cimg"><span class="jr-tag">Detail</span><img src="story-vel-hand.jpg" alt="A golden Vel held between two fingers" loading="lazy"></div>
         <h4>A Vel small enough to hold</h4>
         <p>Finished in gold with a red kumkum dot — a small piece that completes the larger one.</p>
+      </a>
+      <a class="jr-card" href="https://yugaveera.com/products/gopuram-manjal-kumkum-holder-with-magnetic-vel" target="_blank" rel="noopener" data-reveal>
+        <div class="jr-cimg"><span class="jr-tag">In use</span><video class="jr-video" src="journal-ritual.mp4" poster="journal-ritual.jpg" muted loop playsinline preload="none" aria-label="Filling the gold manjal and kumkum cups, closing the gopuram and placing the Vel"></video></div>
+        <h4>Manjal, kumkum, then the Vel</h4>
+        <p>Two gold cups inside the base hold manjal and kumkum; the tower closes over them and the Vel settles in last.</p>
       </a>
     </div>
   </div>
@@ -1966,7 +1970,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 114</span>
+    <span>Crafted with devotion · Made in India · build 115</span>
   </div>
 </footer>
 
@@ -2829,6 +2833,17 @@ data.forEach(function(d,k){
   var an=document.getElementById(p[0]);if(an){if(p[2]==='before')an.parentNode.insertBefore(sc,an);else an.parentNode.insertBefore(sc,an.nextSibling)}else ix.parentNode.parentNode.appendChild(sc);prevSec=sc}});
 ix.style.display='none';
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});cards.forEach(function(c){io.observe(c)})}else cards.forEach(function(c){c.classList.add('in')});
+})();
+</script>
+<script>
+/* journal video: download and play only while on screen (data + battery); poster only for reduced-motion users */
+(function(){
+  var v=document.querySelector('.jr-video'); if(!v) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(!('IntersectionObserver' in window)){ v.preload='auto'; v.play().catch(function(){}); return; }
+  new IntersectionObserver(function(es){ es.forEach(function(e){
+    if(e.isIntersecting){ if(v.preload!=='auto') v.preload='auto'; v.play().catch(function(){}); } else v.pause();
+  }); },{ rootMargin:'200px 0px', threshold:.15 }).observe(v);
 })();
 </script>
 </body>
