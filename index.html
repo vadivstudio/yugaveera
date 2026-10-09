@@ -1381,6 +1381,10 @@ html,body{overflow-x:hidden; overflow-x:clip}
   border:1px solid rgba(255,255,255,.85)!important; box-shadow:inset 0 1px 0 rgba(255,255,255,.95)!important}
 .ab-card:hover{border-color:rgba(176,141,69,.5)!important}
 
+/* New launch: product photos are portrait */
+.k-img img{aspect-ratio:4/5!important; object-position:50% 40%}
+@media(min-width:901px){ .k-img{width:min(100%, calc(clamp(300px, calc(100vh - 290px), 600px) * .8))} }
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1671,21 +1675,22 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
 </section>
 
-<!-- 06c JOURNAL -->
-<section id="kandhan">
+<!-- NEW LAUNCH: newest product from yugaveera.com (updates itself when a newer one is published) -->
+<section id="new-launch">
   <div class="wrap">
     <div class="k-banner">
       <div class="k-copy" data-reveal>
-        <div class="eyebrow">Back In Stock</div>
-        <h2>Kandhan<br>Returns.</h2>
-        <p class="lead">The Flying Edition (2-in-1) — dashboard guardian and car hang in one. The piece that started the tribe is home again.</p>
-        <a class="btn solid" href="https://yugaveera.com/products/kadhan-returns" target="_blank" rel="noopener">Claim Yours</a>
+        <div class="eyebrow">New launch</div>
+        <h2 id="nlTitle">Meditative<br>Shiva.</h2>
+        <p class="lead" id="nlDesc">A fully magnetic sculpture: Shiva, the red ring, the serpent and the base each click into place on their own. Black, red and gold, designed and made in India.</p>
+        <a class="btn solid" id="nlLink" href="https://yugaveera.com/products/shiva-meditative-shiva-figurine-yugaveera" target="_blank" rel="noopener">View the piece</a>
       </div>
       <div class="k-img" data-reveal data-clip>
-        <img src="https://yugaveera.com/cdn/shop/files/IMG-3858.png?v=1772631186&width=900" alt="Kandhan Returns — Flying Edition" loading="lazy">
+        <img id="nlImg" src="https://cdn.shopify.com/s/files/1/0669/1507/4136/files/IMG-3543.webp?v=1791457295&width=900" alt="Meditative Shiva figurine seated inside a red ring with a serpent, on a gold base" loading="lazy">
       </div>
     </div>
   </div>
+  <script type="application/json" id="nlData">{"handle":"shiva-meditative-shiva-figurine-yugaveera","created":"2026-10-08"}</script>
 </section>
 
 <!-- 04 WHY YUGAVEERA -->
@@ -2083,7 +2088,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 129</span>
+    <span>Crafted with devotion · Made in India · build 130</span>
   </div>
 </footer>
 
@@ -3064,6 +3069,29 @@ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es
   ls.addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd); setTimeout(upd,60); setTimeout(upd,600);
   if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:.1}); cards.forEach(function(c){ io.observe(c); }); }
   else cards.forEach(function(c){ c.classList.add('in'); });
+})();
+</script>
+<script>
+/* New launch: ask the store for its newest product; if it is newer than the one built into the page, show it instead.
+   Uses the public products.json (CORS-open). Any failure leaves the built-in product in place. */
+(function(){
+  var cur=JSON.parse(document.getElementById('nlData').textContent||'{}');
+  if(!window.fetch) return;
+  fetch('https://yugaveera.com/products.json?limit=250').then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+    if(!d||!d.products||!d.products.length) return;
+    var p=d.products.filter(function(x){ return x.images&&x.images.length&&x.variants.some(function(v){ return v.available; }); })
+      .sort(function(a,b){ return new Date(b.created_at)-new Date(a.created_at); })[0];
+    if(!p||p.handle===cur.handle||new Date(p.created_at)<=new Date(cur.created)) return;
+    var name=p.title.split(' | ').filter(function(s){ return !/yugaveera|pre-?order/i.test(s); }).join(' ').replace(/\s+/g,' ').trim();
+    var txt=(p.body_html||'').replace(/<[^>]+>/g,' ').replace(/&amp;/g,'&').replace(/&[a-z#0-9]+;/gi,' ').replace(/\s+/g,' ');
+    var sent=(txt.match(/[^.!?]+[.!?]/g)||[]).map(function(x){ return x.trim(); }).filter(function(x){ return /^[ -~–—’“”]+$/.test(x) && x.length>20; });
+    var desc=''; for(var i=0;i<sent.length && (desc+sent[i]).length<190;i++) desc+=(desc?' ':'')+sent[i];
+    var img=p.images[0].src; img+=(img.indexOf('?')<0?'?':'&')+'width=900';
+    document.getElementById('nlTitle').textContent=name;
+    if(desc) document.getElementById('nlDesc').textContent=desc;
+    document.getElementById('nlLink').href='https://yugaveera.com/products/'+p.handle;
+    var im=document.getElementById('nlImg'); im.src=img; im.alt=name;
+  }).catch(function(){});
 })();
 </script>
 </body>
