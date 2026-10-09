@@ -1115,6 +1115,9 @@ html{-webkit-text-size-adjust:100%; text-size-adjust:100%}
   #testimonials .q-card p,.mo-quote p{font-size:16.5px!important; line-height:1.55!important}
   #faq .acc button{font-size:17px!important; line-height:1.35!important}
   .announce{font-size:10.5px!important}
+  /* section rhythm: ~70-90px between sections instead of 140-230px */
+  section:not(#hero):not(#marquee){padding-top:36px!important; padding-bottom:36px!important}
+  #craft{margin-top:0!important}   /* the -52px overlap is a desktop panel effect; on phones it ate the gap */
 }
 
 @media(max-width:340px){ /* too narrow for three columns: compact rows */
@@ -1858,7 +1861,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 106</span>
+    <span>Crafted with devotion · Made in India · build 107</span>
   </div>
 </footer>
 
