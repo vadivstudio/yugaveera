@@ -1373,6 +1373,14 @@ html,body{overflow-x:hidden; overflow-x:clip}
   .jr-foot{margin-top:clamp(18px,3vh,32px)!important}
 }
 
+/* About cards: light frosted glass over a soft warm glow (so the blur has something to show) */
+.ab-cards{position:relative; isolation:isolate}
+.ab-cards::before{content:''; position:absolute; inset:-8% -4%; z-index:-1; pointer-events:none;
+  background:radial-gradient(38% 46% at 28% 30%, rgba(214,180,110,.30), transparent 70%), radial-gradient(34% 42% at 76% 74%, rgba(190,160,120,.22), transparent 70%)}
+.ab-card{background:rgba(255,255,255,.55)!important;
+  border:1px solid rgba(255,255,255,.85)!important; box-shadow:inset 0 1px 0 rgba(255,255,255,.95)!important}
+.ab-card:hover{border-color:rgba(176,141,69,.5)!important}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1385,6 +1393,8 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   nav,nav.scrolled{-webkit-backdrop-filter:none!important; backdrop-filter:none!important; background:rgba(255,255,255,.94)}
   .grain,#gl{display:none!important}
 }
+/* the About cards are the one static group that keeps a real blur on desktop (4 small, still cards: cheap) */
+@media(min-width:900px) and (hover:hover){ body .ab-cards .ab-card{-webkit-backdrop-filter:blur(16px) saturate(1.3)!important; backdrop-filter:blur(16px) saturate(1.3)!important} }
 </style>
 </head>
 <body>
@@ -2073,7 +2083,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 128</span>
+    <span>Crafted with devotion · Made in India · build 129</span>
   </div>
 </footer>
 
