@@ -2073,7 +2073,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 122</span>
+    <span>Crafted with devotion · Made in India · build 123</span>
   </div>
 </footer>
 
@@ -2523,7 +2523,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   var m=innerWidth<720, wide=innerWidth>=1500;
   var J={x:0, y:m?.3:.03, s:m?1:1.1, t:0, p:80, rad:106};
   var H={intro:m?0:220, mx:0, my:0, tx:0, ty:0};
-  if(!m){ gsap.to(H,{intro:0,duration:3.4,ease:'power3.out',delay:1.1}); }
+  H.intro=0;   /* hero model only floats up and down: no spin-in, no side-to-side sway */
   addEventListener('pointermove',function(e){ if(innerWidth>=900){ H.tx=(e.clientX/innerWidth-.5)*2; H.ty=(e.clientY/innerHeight-.5)*2; } },{passive:true});
   function wp(sel,x,y,s,t,p,rad){ gsap.to(J,{x:x,y:y,s:s,t:t,p:p||78,rad:rad||105,ease:'sine.inOut',
     scrollTrigger:{trigger:sel,start:'top bottom',end:'top 25%',scrub:1.15}}); }
@@ -2596,12 +2596,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     var vh=innerHeight, cl=function(v){return v<0?0:v>1?1:v}, el=function(i){var e=document.getElementById(i); return e?e.getBoundingClientRect().top:1e9};
     var a1=stFit?cl((el('collections')-vh*.72)/(vh*.28)):cl((el('marquee')-vh*.55)/(vh*.3)), a2=innerWidth<900?0:crFit*cl((vh*.42-el('craft'))/(vh*.3))*(1-cl((vh*.98-el('anatomy'))/(vh*.28)));
     var al=Math.max(a1,a2); if(al!==lastAl){ lastAl=al; pos.style.opacity=al.toFixed(3); pos.style.visibility=al<.01?'hidden':'visible'; }
-    var px=(J.x*innerWidth*.5+H.mx*16*hf).toFixed(1), py=(J.y*innerHeight*.5+H.my*10*hf+Math.sin(tt*.9)*6*hf).toFixed(1), ps=J.s.toFixed(3);
+    var px=(J.x*innerWidth*.5).toFixed(1), py=(J.y*innerHeight*.5+Math.sin(tt*.9)*8*hf).toFixed(1), ps=J.s.toFixed(3);
     var pk=px+','+py+','+ps;
     if(pk!==lastPos){ lastPos=pk; gsap.set(pos,{xPercent:-50,yPercent:-50,x:+px,y:+py,scale:+ps}); }
     /* model hidden (between docks / below Craft): stop feeding it camera moves so it stops re-rendering */
     if(!hold && al>=.01 && !layer.classList.contains('mv-off')){
-      var th=J.t+(H.intro+28*Math.sin(tt*.55)+H.mx*22)*hf, ph=J.p-H.my*6*hf, o=th.toFixed(1)+'deg '+ph.toFixed(1)+'deg '+J.rad.toFixed(1)+'%';
+      var th=J.t, ph=J.p, o=th.toFixed(1)+'deg '+ph.toFixed(1)+'deg '+J.rad.toFixed(1)+'%';
       if(o!==lastOrbit){ lastOrbit=o; mv.cameraOrbit=o; }
     }
   });
