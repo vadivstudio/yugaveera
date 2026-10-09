@@ -1409,6 +1409,27 @@ h1,h2,h3,#cta h2 .ch,.cs-head h3,.ix-side h3,.shop-head h3,.cc-meta h3,.svc-body
 }
 @media(min-width:981px) and (max-height:760px){ #story{padding-top:134px!important} #story h2{font-size:clamp(38px,3.8vw,56px)!important} #story .stats{margin-top:14px!important} }
 
+/* Final CTA: the Vel artwork as the backdrop, copy on a frosted-glass panel (left), the figurine on the right */
+#cta{min-height:auto!important; display:block!important; text-align:left!important}
+#cta .wrap{max-width:min(1760px,94vw)!important; position:relative; isolation:isolate; overflow:hidden; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.8fr); gap:clamp(24px,4vw,64px); align-items:center;
+  min-height:min(calc(100vh - 170px),720px); padding:clamp(28px,4vw,64px)!important; border-radius:32px!important; border:0!important;
+  background:#1a100b url('cta-bg.jpg') center 78%/cover no-repeat!important}
+#cta .wrap::before{content:''; position:absolute; inset:0; z-index:-1; pointer-events:none; background:linear-gradient(90deg,rgba(12,8,6,.5) 0%,rgba(12,8,6,.2) 55%,rgba(12,8,6,.45) 100%)}
+#cta .cta-glass{max-width:620px; padding:clamp(28px,3.4vw,52px); border-radius:24px; background:rgba(255,255,255,.72); border:1px solid rgba(255,255,255,.8);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95)!important; -webkit-backdrop-filter:blur(18px) saturate(1.2)!important; backdrop-filter:blur(18px) saturate(1.2)!important}
+#cta .eyebrow{margin-left:0!important; margin-right:0!important; justify-content:flex-start}
+#cta h2{text-align:left}
+#cta .lead{margin:18px 0 30px!important; max-width:44ch}
+#cta .cta-btns{justify-content:flex-start!important}
+#cta .cta-art{display:flex; justify-content:center; align-items:center; min-width:0}
+#cta .cta-art img{display:block; width:auto; max-width:100%; height:min(calc(100vh - 260px),600px); object-fit:contain; filter:drop-shadow(0 28px 36px rgba(0,0,0,.45))}
+@media(max-width:900px){
+  #cta .wrap{grid-template-columns:1fr; gap:18px; min-height:0; padding:18px!important; border-radius:24px!important; background-position:center 70%!important}
+  #cta .cta-art{order:-1}
+  #cta .cta-art img{height:min(46vh,340px)}
+  #cta .cta-glass{padding:26px 22px; max-width:none}
+}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -2045,13 +2066,16 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
 <!-- 10 FINAL CTA -->
 <section id="cta">
   <div class="wrap">
-    <div class="eyebrow" data-reveal style="justify-content:center">The Collection Awaits</div>
-    <h2 data-reveal>Bring the<br><em>divine</em> home.</h2>
-    <p class="lead" data-reveal>From temple gopurams to flying guardians — every piece is devotion, precision-crafted in India. Yours begins here.</p>
-    <div class="cta-btns" data-reveal>
-      <a class="btn solid" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener">Explore Collection</a>
-      <a class="btn gold" href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener">Limited Editions</a>
+    <div class="cta-glass">
+      <div class="eyebrow" data-reveal>The collection awaits</div>
+      <h2 data-reveal>Bring the<br><em>divine</em> home.</h2>
+      <p class="lead" data-reveal>From temple gopurams to flying guardians — every piece is devotion, precision-crafted in India. Yours begins here.</p>
+      <div class="cta-btns" data-reveal>
+        <a class="btn solid" href="https://yugaveera.com/collections/all" target="_blank" rel="noopener">Explore Collection</a>
+        <a class="btn gold" href="https://yugaveera.com/collections/limited-editions" target="_blank" rel="noopener">Limited Editions</a>
+      </div>
     </div>
+    <div class="cta-art"><img src="cta-vel.webp" alt="Yugaveera figurine: a raised hand holding the Vel, rising from golden flames on a base marked Om" width="628" height="900" loading="lazy" decoding="async"></div>
   </div>
 </section>
 
@@ -2093,7 +2117,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 132</span>
+    <span>Crafted with devotion · Made in India · build 133</span>
   </div>
 </footer>
 
