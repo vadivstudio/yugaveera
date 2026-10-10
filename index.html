@@ -1533,6 +1533,9 @@ model-viewer{--progress-bar-height:0px; --progress-bar-color:transparent}
 /* phones: no spotlight ray behind the hero heading (tablet/desktop keep it) */
 @media(max-width:600px){ .hero-beam{display:none!important} }
 
+/* phones: the menu already holds Shop now, so the header shows only the logo and the menu button (Hick) */
+@media(max-width:720px){ nav .nav-shop{display:none!important} }
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -2268,7 +2271,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 151</span>
+    <span>Crafted with devotion · Made in India · build 152</span>
   </div>
 </footer>
 
