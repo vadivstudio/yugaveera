@@ -1526,6 +1526,10 @@ footer.site .f-about p:last-child{margin-bottom:0; color:var(--ink)}
   #hero .hero-points .hp:nth-child(odd){padding-left:0!important; border-left:0!important}
 }
 
+/* no 3D-viewer loading bar (it showed as a grey line across the top of the hero while the tower downloaded) */
+model-viewer::part(default-progress-bar){display:none!important}
+model-viewer{--progress-bar-height:0px; --progress-bar-color:transparent}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1553,7 +1557,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
 <div class="progress"></div>
 <div id="mvLayer"><div class="pos">
 <div class="halo"></div>
-<model-viewer id="gopuramMV" camera-controls disable-zoom disable-pan interaction-prompt="none" min-camera-orbit="-Infinity 0deg auto" max-camera-orbit="Infinity 180deg auto" exposure="1.05" tone-mapping="commerce" environment-image="neutral" shadow-intensity="0.8" shadow-softness="1" camera-orbit="0deg 78deg 108%" alt="3D temple tower — drag to rotate"></model-viewer>
+<model-viewer id="gopuramMV" camera-controls disable-zoom disable-pan interaction-prompt="none" min-camera-orbit="-Infinity 0deg auto" max-camera-orbit="Infinity 180deg auto" exposure="1.05" tone-mapping="commerce" environment-image="neutral" shadow-intensity="0.8" shadow-softness="1" camera-orbit="0deg 78deg 108%" alt="3D temple tower — drag to rotate"><div slot="progress-bar"></div></model-viewer>
 </div></div>
 
 <div class="bg-fx">
@@ -1636,7 +1640,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
         <a class="btn solid" href="#collections">Explore Collection</a>
       </div>
     </div>
-    <div class="hero-mid"><model-viewer id="heroMV2" class="hero-mv2" camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none" auto-rotate auto-rotate-delay="0" rotation-per-second="22deg" exposure="1.05" tone-mapping="commerce" environment-image="neutral" shadow-intensity="0.8" shadow-softness="1" camera-orbit="25deg 78deg 108%" alt="3D temple tower — drag to rotate"></model-viewer></div>
+    <div class="hero-mid"><model-viewer id="heroMV2" class="hero-mv2" camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none" auto-rotate auto-rotate-delay="0" rotation-per-second="22deg" exposure="1.05" tone-mapping="commerce" environment-image="neutral" shadow-intensity="0.8" shadow-softness="1" camera-orbit="25deg 78deg 108%" alt="3D temple tower — drag to rotate"><div slot="progress-bar"></div></model-viewer></div>
     <aside class="hr" data-load>
       <h3>Gopuram,<br><em>tier by tier.</em></h3>
       <p>Tiruchendur, Srirangam and Madurai recreated in fine detail — each a functional manjal–kumkum holder with a magnetic Vel.</p>
@@ -2255,7 +2259,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 148</span>
+    <span>Crafted with devotion · Made in India · build 149</span>
   </div>
 </footer>
 
