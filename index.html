@@ -1550,6 +1550,12 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
 @media(min-width:900px) and (hover:hover){ body #vadiv .k-banner{-webkit-backdrop-filter:blur(22px) saturate(1.3)!important; backdrop-filter:blur(22px) saturate(1.3)!important} }
 @media(min-width:900px) and (hover:hover){ body #new-launch .k-banner{-webkit-backdrop-filter:blur(22px) saturate(1.3)!important; backdrop-filter:blur(22px) saturate(1.3)!important} }
 @media(min-width:900px) and (hover:hover){ body .ab-cards .ab-card{-webkit-backdrop-filter:blur(16px) saturate(1.3)!important; backdrop-filter:blur(16px) saturate(1.3)!important} }
+/* ===== smooth-scroll pass =====
+   - the full-screen particle canvas is off (it repainted the whole screen and forced the glass cards to re-blur)
+   - glass cards keep translucency + edge + glow, but no live backdrop blur: what sits behind them is a smooth
+     gradient, so the blur was invisible yet recalculated on every scroll frame */
+#gl{display:none!important}
+#cta .cta-glass,#cta .cta-head,#cta .cta-body,body #motion > .wrap,body #new-launch .k-banner,body #vadiv .k-banner,body .ab-cards .ab-card{-webkit-backdrop-filter:none!important; backdrop-filter:none!important}
 </style>
 </head>
 <body>
@@ -2262,7 +2268,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 150</span>
+    <span>Crafted with devotion · Made in India · build 151</span>
   </div>
 </footer>
 
@@ -2384,9 +2390,10 @@ document.querySelectorAll('#story .grid p').forEach(p => {
   const walk = n => {
     if (n.nodeType === 3) {
       const f = document.createDocumentFragment();
-      [...n.textContent].forEach(ch => {
-        if (ch.trim() === '') { f.appendChild(document.createTextNode(ch)); return; }
-        const s = document.createElement('span'); s.className = 'cch'; s.textContent = ch; f.appendChild(s);
+      n.textContent.split(/(\s+)/).forEach(w => {   /* word by word: same effect, a fraction of the elements */
+        if (!w) return;
+        if (w.trim() === '') { f.appendChild(document.createTextNode(w)); return; }
+        const s = document.createElement('span'); s.className = 'cch'; s.textContent = w; f.appendChild(s);
       });
       n.replaceWith(f);
     } else if (n.nodeType === 1) [...n.childNodes].forEach(walk);
@@ -2583,13 +2590,7 @@ const bgMap = [
   ['#testimonials', '#e8e8e8'],
   ['#cta',          '#e6e4df']
 ];
-bgMap.forEach(([sel, color]) => {
-  ScrollTrigger.create({
-    trigger: sel, start:'top 55%', end:'bottom 55%',
-    onEnter: () => gsap.to('body', { backgroundColor: color, duration:1.1, ease:'power2.out' }),
-    onEnterBack: () => gsap.to('body', { backgroundColor: color, duration:1.1, ease:'power2.out' })
-  });
-});
+/* (the background colour no longer animates between sections: the greys were near-identical and each change repainted the whole page) */
 
 /* photo backdrop: full strength in the hero, calm behind the exhibition */
 gsap.to('.bg-fx .photo', { opacity:.35, ease:'none',
@@ -2616,18 +2617,21 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => Scro
 let __settle = 0;
 const __settleIv = setInterval(() => {
   ScrollTrigger.sort(); ScrollTrigger.refresh();
-  if (++__settle >= 6) clearInterval(__settleIv);
-}, 2000);
+  if (++__settle >= 2) clearInterval(__settleIv);
+}, 2500);
 
 /* marquee rows follow the scroll, opposite directions */
 (function(){
   const mq = document.getElementById('marquee');
   if (!mq) return;
   const r1 = mq.querySelector('.mq1'), r2 = mq.querySelector('.mq2');
+  let mqTop = 0, mqH = 0;
+  const measure = () => { const r = mq.getBoundingClientRect(); mqTop = r.top + scrollY; mqH = r.height; };
+  measure(); ScrollTrigger.addEventListener('refresh', measure); addEventListener('resize', measure);
   const onScroll = () => {
-    const rect = mq.getBoundingClientRect();
-    if (rect.bottom < 0 || rect.top > innerHeight) return;
-    const off = (innerHeight - rect.top) * .3;
+    const top = mqTop - scrollY;
+    if (top + mqH < 0 || top > innerHeight) return;
+    const off = (innerHeight - top) * .3;
     r1.style.transform = 'translateX(' + (off - 620) + 'px)';
     r2.style.transform = 'translateX(' + (-(off - 620) - 900) + 'px)';
   };
@@ -2766,8 +2770,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     ST.x=((c.left+c.width/2)-iw/2)/(iw/2); ST.y=((110+vv)/2-vv/2)/(vv/2);
     return ST;
   }
+  var mvLastSY=-1, mvIdle=0, mvPast=false;
+  ScrollTrigger.create({trigger:'#anatomy', start:'bottom top', onEnter:function(){mvPast=true}, onLeaveBack:function(){mvPast=false}});
   gsap.ticker.add(function(){
-    var tt=performance.now()/1000, hf=Math.max(0,1-(window.scrollY||0)/(innerHeight*.7));
+    var sy=window.scrollY||0, tt=performance.now()/1000, hf=Math.max(0,1-sy/(innerHeight*.7));
+    if(layer.classList.contains('mv-off') || (mvPast && lastAl===0)) return;   /* model gone for the rest of the page */
+    if(sy!==mvLastSY){ mvLastSY=sy; mvIdle=0; } else if(hf===0 && ++mvIdle>60) return;   /* not scrolling and no float: already settled */
     H.mx+=(H.tx-H.mx)*.06; H.my+=(H.ty-H.my)*.06;
     /* deterministic position: blend hero -> story dock -> craft dock from live section positions
        (replaces scrubbed tweens, which could leave the model stranded half-way) */
@@ -2827,8 +2835,10 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
   /* progress measured LIVE from real on-screen geometry — immune to stale layout */
   const secEl = document.getElementById('anatomy');
   const anTrack = secEl.querySelector('.an-track'), anPin = secEl.querySelector('.an-pin');
-  let pCur = 0;
+  let pCur = 0, pLast = -1, anNear = true;
+  try { new IntersectionObserver(es => { anNear = es.some(e => e.isIntersecting); }, { rootMargin:'150% 0px' }).observe(secEl); } catch(e){}
   gsap.ticker.add(() => {
+    if (!anNear && pCur === pLast) return;   /* far off-screen and settled: skip the per-frame layout reads */
     const host = (secEl.parentElement && secEl.parentElement.classList.contains('pin-spacer')) ? secEl.parentElement : secEl;
     const r = host.getBoundingClientRect();
     let p;
@@ -2840,7 +2850,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       if (tr && tr.height > anPin.offsetHeight + 10) p = ((parseFloat(getComputedStyle(anPin).top) || 0) - tr.top) / (tr.height - anPin.offsetHeight) / .85;   /* finish at 85%, then hold the assembled piece */
       else p = (innerHeight * .75 - r.top) / (r.height * .9);
     }
-    p = Math.max(0, Math.min(1, p));
+    p = Math.max(0, Math.min(1, p)); pLast = p;
     if (p === pCur && tl.progress() === pCur) return;   /* settled — nothing to re-render */
     pCur += (p - pCur) * .08;   /* gentler easing toward the scroll position */
     if (Math.abs(p - pCur) < .001) pCur = p;
