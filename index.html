@@ -1497,6 +1497,26 @@ footer.site .f-about p:last-child{margin-bottom:0; color:var(--ink)}
 @media(max-width:980px){ .mo-copy h2{margin-top:26px!important} }
 @media(max-width:900px){ .k-banner h2{margin-top:0!important} }
 
+/* Vadiv: same frosted-glass card as New launch, mirrored (photo left) so the two launches read as a pair */
+#vadiv .wrap{position:relative; isolation:isolate}
+#vadiv .wrap::before{content:''; position:absolute; inset:-6% -2%; z-index:-1; pointer-events:none;
+  background:radial-gradient(34% 54% at 24% 46%, rgba(214,180,110,.38), transparent 70%), radial-gradient(30% 50% at 78% 60%, rgba(120,170,120,.14), transparent 70%)}
+#vadiv .k-banner{background:rgba(255,255,255,.52)!important; border:1px solid rgba(255,255,255,.85)!important; box-shadow:inset 0 1px 0 rgba(255,255,255,.95)!important}
+#vadiv .k-banner::before{opacity:.5}
+#vadiv .vd-more{margin:0 0 26px; padding-top:22px; border-top:1px solid rgba(0,0,0,.1); max-width:46ch}
+#vadiv .vd-more h3{font-family:'Cormorant Garamond',serif; font-size:clamp(22px,1.8vw,28px); font-weight:500; margin:0 0 8px}
+#vadiv .vd-more p{font-size:16px; line-height:1.6; color:var(--ink2); margin:0}
+#vadiv .vd-btns{display:flex; gap:14px; flex-wrap:wrap}
+#vadiv .k-banner .lead{margin-bottom:24px}
+@media(min-width:901px){
+  #vadiv .k-banner{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important}
+  #vadiv .k-img{order:-1; justify-self:start}
+}
+@media(max-width:900px){
+  #vadiv .k-banner .lead{order:4} #vadiv .vd-more{order:5; margin-top:0} #vadiv .vd-btns{order:6}
+  #vadiv .vd-btns .btn{flex:1 1 auto; justify-content:center}
+}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -1511,6 +1531,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
 }
 /* the About cards are the one static group that keeps a real blur on desktop (4 small, still cards: cheap) */
 @media(min-width:900px) and (hover:hover){ body #motion > .wrap{-webkit-backdrop-filter:blur(22px) saturate(1.3)!important; backdrop-filter:blur(22px) saturate(1.3)!important} }
+@media(min-width:900px) and (hover:hover){ body #vadiv .k-banner{-webkit-backdrop-filter:blur(22px) saturate(1.3)!important; backdrop-filter:blur(22px) saturate(1.3)!important} }
 @media(min-width:900px) and (hover:hover){ body #new-launch .k-banner{-webkit-backdrop-filter:blur(22px) saturate(1.3)!important; backdrop-filter:blur(22px) saturate(1.3)!important} }
 @media(min-width:900px) and (hover:hover){ body .ab-cards .ab-card{-webkit-backdrop-filter:blur(16px) saturate(1.3)!important; backdrop-filter:blur(16px) saturate(1.3)!important} }
 </style>
@@ -1668,6 +1689,30 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
     </div>
   </div>
   <script type="application/json" id="nlData">{"handle":"shiva-meditative-shiva-figurine-yugaveera","created":"2026-10-08"}</script>
+</section>
+
+<!-- VADIV x YugaVeera: the collaborative "sacred abstraction" collection (photo left, copy right on desktop) -->
+<section id="vadiv">
+  <div class="wrap">
+    <div class="k-banner">
+      <div class="k-copy" data-reveal>
+        <div class="eyebrow">Vadiv × YugaVeera</div>
+        <h2>Sacred abstraction.</h2>
+        <p class="lead">VADIV, from வடிவு (form), is a new design language for the divine: proportion, geometry and essential form, where less detail never means less identity.</p>
+        <div class="vd-more">
+          <h3>VADIV 01 – Murugan</h3>
+          <p>The first form, revealed at Batu Caves, Malaysia. The peacock becomes part of the composition and the Vel draws its central line. Ivory and gold, digitally sculpted and precision 3D printed in India.</p>
+        </div>
+        <div class="vd-btns">
+          <a class="btn solid" href="https://yugaveera.com/products/vadiv-01-murugan-sacred-abstraction-vadiv-yugaveera" target="_blank" rel="noopener">View VADIV 01</a>
+          <a class="btn gold" href="https://yugaveera.com/collections/vadiv" target="_blank" rel="noopener">Explore Vadiv</a>
+        </div>
+      </div>
+      <div class="k-img" data-reveal data-clip>
+        <img src="https://cdn.shopify.com/s/files/1/0669/1507/4136/files/4F54F0E8-ABCC-4822-AA23-F4DC976D3333.jpg?v=1791608703&width=1100" alt="VADIV 01 Murugan figurine in ivory and gold, held up in front of the golden Murugan statue at Batu Caves, Malaysia" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- 03 FEATURED COLLECTIONS: same card carousel as Featured Products (heading + a full row fit one screen) -->
@@ -2201,7 +2246,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 144</span>
+    <span>Crafted with devotion · Made in India · build 145</span>
   </div>
 </footer>
 
@@ -3199,7 +3244,7 @@ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es
   if(!window.fetch) return;
   fetch('https://yugaveera.com/products.json?limit=250').then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
     if(!d||!d.products||!d.products.length) return;
-    var p=d.products.filter(function(x){ return x.images&&x.images.length&&x.variants.some(function(v){ return v.available; }); })
+    var p=d.products.filter(function(x){ return !/vadiv/i.test(x.handle+' '+x.title) && x.images&&x.images.length&&x.variants.some(function(v){ return v.available; }); })
       .sort(function(a,b){ return new Date(b.created_at)-new Date(a.created_at); })[0];
     if(!p||p.handle===cur.handle||new Date(p.created_at)<=new Date(cur.created)) return;
     var name=p.title.split(' | ').filter(function(s){ return !/yugaveera|pre-?order/i.test(s); }).join(' ').replace(/\s+/g,' ').trim();
