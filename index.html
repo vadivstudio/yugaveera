@@ -1513,6 +1513,19 @@ footer.site .f-about p:last-child{margin-bottom:0; color:var(--ink)}
   #vadiv .vd-btns .btn{flex:1 1 auto; justify-content:center}
 }
 
+/* hero title on phones/tablets: words flow as one phrase (left-aligned, natural wrap) instead of one word per line */
+@media(max-width:900px){ #hero #heroTitle .w{display:inline-block!important; margin-right:.24em} #hero #heroTitle{line-height:1.02!important} }
+
+/* hero on phones/tablets: one spacing rhythm between the stacked parts, and the four points as an aligned 2x2 grid */
+@media(max-width:900px){
+  #heroLead{margin:20px 0 0!important}
+  #heroCta{margin-top:26px!important}
+  #hero .hr{margin-top:40px!important; padding-top:28px!important}
+  #hero .hero-points{display:grid!important; grid-template-columns:1fr 1fr; gap:22px 0!important; margin-top:36px!important; padding:24px 0 40px!important}
+  #hero .hero-points .hp{margin:0!important; padding:0 0 0 16px!important; border-left:1px solid rgba(0,0,0,.14)!important; min-width:0}
+  #hero .hero-points .hp:nth-child(odd){padding-left:0!important; border-left:0!important}
+}
+
 /* ===== scroll performance =====
    Live background blur on ~75 cards/buttons forced the browser to re-blur them on every
    scroll frame. Over this flat light background the blur was nearly invisible, so it is
@@ -2242,7 +2255,7 @@ body *:not(nav){-webkit-backdrop-filter:none!important; backdrop-filter:none!imp
   </div>
   <div class="base">
     <span>© 2026 Yugaveera. All rights reserved.</span>
-    <span>Crafted with devotion · Made in India · build 147</span>
+    <span>Crafted with devotion · Made in India · build 148</span>
   </div>
 </footer>
 
